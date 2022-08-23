@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group 'com.github.iqpizza6349'
@@ -7,6 +8,19 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+
+task customFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'com.github.iqpizza6349.cloverytdownloader.CloverYTDownloadApplication'
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations.compileClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+    with jar
 }
 
 allprojects {
@@ -18,7 +32,8 @@ allprojects {
 }
 
 dependencies {
-    compileOnly 'com.github.sapher:youtubedl-java:1.+'
+    implementation 'com.github.sapher:youtubedl-java:1.+'
+    implementation 'commons-validator:commons-validator:1.7'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
