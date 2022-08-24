@@ -1,9 +1,9 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
 import com.github.iqpizza6349.cloverytdownloader.frame.ResourceUtil;
-import com.sapher.youtubedl.YoutubeDL;
-import com.sapher.youtubedl.YoutubeDLException;
-import com.sapher.youtubedl.YoutubeDLRequest;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLException;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLRequest;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import java.io.File;
@@ -42,9 +42,10 @@ public class Utils {
 
         try {
             YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
-            YoutubeDL.execute(request, (progress, etaInSeconds) -> {
-                ResourceUtil.updateCurrentProgress((int) progress);
-            });
+            YoutubeDL.execute(
+                    request,
+                    (progress, etaInSeconds) -> ResourceUtil.updateCurrentProgress((int) progress)
+            );
             return true;
         } catch (YoutubeDLException e) {
             e.printStackTrace();
