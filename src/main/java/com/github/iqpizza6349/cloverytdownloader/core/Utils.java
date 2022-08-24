@@ -37,7 +37,7 @@ public class Utils {
         request.setOption("retries", 10);
 
         try {
-            YoutubeDL.setExecutablePath("C:\\Users\\DGSW\\Downloads\\ffmpeg-master-latest-win64-gpl\\bin\\youtube-dl");
+            YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
             YoutubeDL.execute(request, (progress, etaInSeconds) -> {
                 ResourceUtil.updateCurrentProgress((int) progress);
             });

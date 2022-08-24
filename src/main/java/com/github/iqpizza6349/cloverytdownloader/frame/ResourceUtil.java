@@ -29,7 +29,6 @@ public final class ResourceUtil {
             stringBuilder.append(args[i])
                     .append("/");
         }
-        System.out.println(stringBuilder);
         stringBuilder.append("ffmpeg-win64-gpl");
 
         return stringBuilder.append("/bin").toString();

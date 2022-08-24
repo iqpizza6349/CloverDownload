@@ -129,7 +129,6 @@ public class MainFrame extends JFrame {
         jButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("버튼 눌림");
                 if (ResourceUtil.isTrigger()) {
                     resultLabel.setText("다운로드 중입니다!");
                     return;
