@@ -10,6 +10,8 @@ import java.io.File;
 
 public class MainFrame extends JFrame {
 
+    public static Integer currentProgress = 0;
+
     private String downloadPath = "";
     private final TextField pathField
             = getPathField("파일을 다운받을 저장 공간을 입력해주세요.", 65);
@@ -20,7 +22,9 @@ public class MainFrame extends JFrame {
     private String formatType = "mp3";
     private static final String BLANK = "                     ";
     private final JLabel resultLabel = new JLabel("");
-
+    private final JProgressBar progressBar = getProgressBar();
+    private boolean trigger = false;
+    private boolean downloadTrigger = false;
 
     public MainFrame() {
         setTitle("Clover Youtube Downloader 1.0");
@@ -33,15 +37,23 @@ public class MainFrame extends JFrame {
         container.add(getPathButton());
         container.add(youtubeField);
         container.add(getFormatType());
-        container.add(new Label(BLANK.repeat(3)));
+        container.add(getBlankLabel(2));
         container.add(convertButton());
-        container.add(new Label(BLANK.repeat(3)));
+        container.add(progressBar);
+        container.add(getBlankLabel(4));
         container.add(resultLabel);
 
         pack();
         setSize(540, 360);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        youtubeProgress();
+        youtubeDownload();
+    }
+
+    private Label getBlankLabel(int repeat) {
+        return new Label(BLANK.repeat(repeat));
     }
 
     private JButton getPathButton() {
@@ -89,32 +101,74 @@ public class MainFrame extends JFrame {
         return jComboBox;
     }
 
+    private JProgressBar getProgressBar() {
+        JProgressBar progressBar = new JProgressBar();
+        progressBar.setStringPainted(true);
+        progressBar.setLocation(400, 200);
+        progressBar.setVisible(false);
+        return progressBar;
+    }
+
+    @SuppressWarnings("InfiniteLoopStatement")
+    private void youtubeProgress() {
+        Runnable runnable = () -> {
+            while (true) {
+                if (!trigger) {
+                    Thread.yield();
+                } else {
+                    if (!progressBar.isVisible()) {
+                        progressBar.setVisible(true);
+                    }
+
+                    progressBar.setValue(currentProgress);
+                    if (currentProgress >= 100) {
+                        trigger = false;
+                    }
+                }
+            }
+        };
+        Thread progressBarThread = new Thread(runnable, "progress");
+        progressBarThread.setDaemon(true);
+        progressBarThread.start();
+    }
+
+    @SuppressWarnings("InfiniteLoopStatement")
+    private void youtubeDownload() {
+        Runnable runnable = () -> {
+            while (true) {
+                if (!trigger && !downloadTrigger) {
+                    Thread.yield();
+                } else {
+                    downloadTrigger = false;
+                    downloadFile();
+                }
+            }
+        };
+        Thread thread = new Thread(runnable, "youtube");
+        thread.setDaemon(true);
+        thread.start();
+    }
+
     private JButton convertButton() {
         JButton jButton = new JButton("다운로드");
         jButton.setPreferredSize(new Dimension(90, 28));
         jButton.addActionListener((event) -> {
-            // TODO 다운로드 중에는 title 역시 수정할 예정
-            boolean isSuccess = false;
-            try {
-                isSuccess = downloadFile();
-            } catch (IllegalArgumentException e) {
-                resultLabel.setText("유튜브 주소 혹은 파일 경로가 이상합니다.");
+            if (trigger) {
+                resultLabel.setText("다운로드 중입니다!");
                 return;
             }
 
-            if (isSuccess) {
-                resultLabel.setText("다운로드 성공");
-            }
-            else {
-                resultLabel.setText("다운로드 실패.. 다시 시도해주세요.");
-            }
+            currentProgress = 0;
+            trigger = true;
+            downloadTrigger = true;
+            resultLabel.setText("");
         });
         return jButton;
     }
 
-    private boolean downloadFile() throws IllegalArgumentException {
-        return new YTRequest(
-                youtubeField.getText(), formatType, downloadPath
+    private void downloadFile() throws IllegalArgumentException {
+        new YTRequest(
+                youtubeField.getText(), downloadPath
         ).downloadYT();
     }
 }

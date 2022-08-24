@@ -4,10 +4,11 @@ import com.github.iqpizza6349.cloverytdownloader.frame.ResourceUtil;
 import com.sapher.youtubedl.YoutubeDL;
 import com.sapher.youtubedl.YoutubeDLException;
 import com.sapher.youtubedl.YoutubeDLRequest;
-import com.sapher.youtubedl.YoutubeDLResponse;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import java.io.File;
+
+import static com.github.iqpizza6349.cloverytdownloader.frame.MainFrame.currentProgress;
 
 public class Utils {
 
@@ -26,7 +27,7 @@ public class Utils {
         return file.exists() && file.isDirectory();
     }
 
-    public static boolean sendRequest(final String videoUrl,
+    public static void sendRequest(final String videoUrl,
                                       final String directory) {
         YoutubeDLRequest request = new YoutubeDLRequest(
                 videoUrl, directory
@@ -39,12 +40,12 @@ public class Utils {
 
         try {
             YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
-            YoutubeDLResponse response = YoutubeDL.execute(request);
-            System.out.println(response.getOut());
-            return true;
+            YoutubeDL.execute(request, (progress, etaInSeconds) -> {
+                currentProgress = (int) progress;
+                System.out.println("current Progress: " + currentProgress + "%");
+            });
         } catch (YoutubeDLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 }

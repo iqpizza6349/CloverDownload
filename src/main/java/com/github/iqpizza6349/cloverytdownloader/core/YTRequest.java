@@ -2,20 +2,18 @@ package com.github.iqpizza6349.cloverytdownloader.core;
 
 public class YTRequest {
     private final String youtubeUrl;
-    private final String formatType;
     private final String downloadDirectory;
 
-    public YTRequest(String youtubeUrl, String formatType,
-                     String downloadDirectory) throws IllegalArgumentException {
+    public YTRequest(String youtubeUrl, String downloadDirectory)
+            throws IllegalArgumentException {
         checkUrl(youtubeUrl);
         this.youtubeUrl = youtubeUrl;
-        this.formatType = formatType;
         checkDirectory(downloadDirectory);
         this.downloadDirectory = downloadDirectory;
     }
 
-    public boolean downloadYT() {
-        return Utils.sendRequest(youtubeUrl, downloadDirectory);
+    public void downloadYT() {
+        Utils.sendRequest(youtubeUrl, downloadDirectory);
     }
 
     private void checkUrl(String url) throws IllegalArgumentException {
