@@ -8,6 +8,13 @@ import java.net.URL;
 
 public final class ResourceUtil {
 
+    public static final String BLANK = "                     ";
+    private static boolean trigger = false;
+    private static boolean downloadTrigger = false;
+    private static int currentProgress = 0;
+    private static String youtubeURL = "";
+    private static String downloadPath = "";
+
     private ResourceUtil() throws IllegalAccessException {
         throw new IllegalAccessException();
     }
@@ -40,5 +47,49 @@ public final class ResourceUtil {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static String getYoutubeURL() {
+        return youtubeURL;
+    }
+
+    public static void setYoutubeURL(String youtubeURL) {
+        ResourceUtil.youtubeURL = youtubeURL;
+    }
+
+    public static String getDownloadPath() {
+        return downloadPath;
+    }
+
+    public static void setDownloadPath(String downloadPath) {
+        ResourceUtil.downloadPath = downloadPath;
+    }
+
+    public static int getCurrentProgress() {
+        return currentProgress;
+    }
+
+    public static void updateCurrentProgress(int currentProgress) {
+        ResourceUtil.currentProgress = currentProgress;
+    }
+
+    public static void initializationProgress() {
+        ResourceUtil.currentProgress = 0;
+    }
+
+    public static void switchTrigger(boolean trigger) {
+        ResourceUtil.trigger = trigger;
+    }
+
+    public static void switchDownloadTrigger(boolean downloadTrigger) {
+        ResourceUtil.downloadTrigger = downloadTrigger;
+    }
+
+    public static boolean isTrigger() {
+        return trigger;
+    }
+
+    public static boolean isDownloadTrigger() {
+        return downloadTrigger;
     }
 }

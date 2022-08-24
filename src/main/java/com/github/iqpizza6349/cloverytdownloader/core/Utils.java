@@ -8,8 +8,6 @@ import org.apache.commons.validator.routines.UrlValidator;
 
 import java.io.File;
 
-import static com.github.iqpizza6349.cloverytdownloader.frame.MainFrame.currentProgress;
-
 public class Utils {
 
     private static final UrlValidator URL_VALIDATOR = new UrlValidator();
@@ -27,7 +25,7 @@ public class Utils {
         return file.exists() && file.isDirectory();
     }
 
-    public static void sendRequest(final String videoUrl,
+    public static boolean sendRequest(final String videoUrl,
                                       final String directory) {
         YoutubeDLRequest request = new YoutubeDLRequest(
                 videoUrl, directory
@@ -39,13 +37,14 @@ public class Utils {
         request.setOption("retries", 10);
 
         try {
-            YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
+            YoutubeDL.setExecutablePath("C:\\Users\\DGSW\\Downloads\\ffmpeg-master-latest-win64-gpl\\bin\\youtube-dl");
             YoutubeDL.execute(request, (progress, etaInSeconds) -> {
-                currentProgress = (int) progress;
-                System.out.println("current Progress: " + currentProgress + "%");
+                ResourceUtil.updateCurrentProgress((int) progress);
             });
+            return true;
         } catch (YoutubeDLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }
