@@ -39,6 +39,7 @@ public class Utils {
         request.setOption("hls-prefer-native");
         request.setOption("audio-quality", 0);
         request.setOption("add-metadata");
+        request.setOption("embed-thumbnail");
 
         try {
             YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
