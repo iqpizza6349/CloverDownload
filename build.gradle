@@ -32,7 +32,7 @@ allprojects {
 }
 
 dependencies {
-    implementation 'com.github.sapher:youtubedl-java:1.+'
+    implementation 'com.github.sapher:youtubedl-java:2cbe41f'
     implementation 'commons-validator:commons-validator:1.7'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
