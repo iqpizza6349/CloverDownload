@@ -31,6 +31,7 @@ public class YoutubeDownload implements Runnable {
                     continue;
                 }
                 if (success) {
+                    ResourceUtil.updateCurrentProgress(100);
                     label.setText("다운로드 완료");
                 }
                 else {

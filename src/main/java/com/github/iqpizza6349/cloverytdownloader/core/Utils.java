@@ -30,11 +30,15 @@ public class Utils {
         YoutubeDLRequest request = new YoutubeDLRequest(
                 videoUrl, directory
         );
+        request.setOption("format", 251);
+        request.setOption("no-cache-dir");
+        request.setOption("no-mtime");
         request.setOption("extract-audio");
         request.setOption("audio-format", "mp3");
         request.setOption("output", "\"%(title)s.%(ext)s\"");
-        request.setOption("ignore-errors");
-        request.setOption("retries", 10);
+        request.setOption("hls-prefer-native");
+        request.setOption("audio-quality", 0);
+        request.setOption("add-metadata");
 
         try {
             YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
