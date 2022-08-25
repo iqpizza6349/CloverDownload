@@ -1,10 +1,9 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
 import com.github.iqpizza6349.cloverytdownloader.frame.ResourceUtil;
-import com.sapher.youtubedl.YoutubeDL;
-import com.sapher.youtubedl.YoutubeDLException;
-import com.sapher.youtubedl.YoutubeDLRequest;
-import com.sapher.youtubedl.YoutubeDLResponse;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLException;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLRequest;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import java.io.File;
@@ -31,16 +30,23 @@ public class Utils {
         YoutubeDLRequest request = new YoutubeDLRequest(
                 videoUrl, directory
         );
+        request.setOption("format", 251);
+        request.setOption("no-cache-dir");
+        request.setOption("no-mtime");
         request.setOption("extract-audio");
         request.setOption("audio-format", "mp3");
         request.setOption("output", "\"%(title)s.%(ext)s\"");
-        request.setOption("ignore-errors");
-        request.setOption("retries", 10);
+        request.setOption("hls-prefer-native");
+        request.setOption("audio-quality", 0);
+        request.setOption("add-metadata");
+        request.setOption("embed-thumbnail");
 
         try {
             YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
-            YoutubeDLResponse response = YoutubeDL.execute(request);
-            System.out.println(response.getOut());
+            YoutubeDL.execute(
+                    request,
+                    (progress, etaInSeconds) -> ResourceUtil.updateCurrentProgress((int) progress)
+            );
             return true;
         } catch (YoutubeDLException e) {
             e.printStackTrace();
