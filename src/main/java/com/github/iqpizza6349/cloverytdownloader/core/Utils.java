@@ -30,7 +30,7 @@ public class Utils {
         YoutubeDLRequest request = new YoutubeDLRequest(
                 videoUrl, directory
         );
-        request.setOption("format", 251);
+        request.setOption("format", "\"bestvideo[height<=?720]+bestaudio/best[height<=?720]\"");
         request.setOption("no-cache-dir");
         request.setOption("no-mtime");
         request.setOption("extract-audio");
@@ -40,6 +40,9 @@ public class Utils {
         request.setOption("audio-quality", 0);
         request.setOption("add-metadata");
         request.setOption("embed-thumbnail");
+        request.setOption("ignore-errors");
+        request.setOption("continue");
+        request.setOption("retries", 10);
 
         try {
             YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
