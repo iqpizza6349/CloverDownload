@@ -3,14 +3,15 @@ package com.github.iqpizza6349;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RegexTest {
 
-    @DisplayName("")
     @Test
     public void RegexTest0() {
         // given
@@ -25,7 +26,6 @@ public class RegexTest {
         assertTrue(isCorrect);
     }
 
-    @DisplayName("")
     @Test
     public void RegexTest1() {
         // given
@@ -40,7 +40,6 @@ public class RegexTest {
         assertTrue(isCorrect);
     }
 
-    @DisplayName("")
     @Test
     public void RegexTest2() {
         // given
@@ -55,7 +54,6 @@ public class RegexTest {
         assertTrue(isCorrect);
     }
 
-    @DisplayName("")
     @Test
     public void RegexTest3() {
         // given
@@ -70,7 +68,6 @@ public class RegexTest {
         assertTrue(isCorrect);
     }
 
-    @DisplayName("")
     @Test
     public void RegexTest4() {
         // given
@@ -85,7 +82,6 @@ public class RegexTest {
         assertTrue(isCorrect);
     }
 
-    @DisplayName("")
     @Test
     public void RegexTest5() {
         // given
@@ -100,7 +96,6 @@ public class RegexTest {
         assertTrue(isCorrect);
     }
 
-    @DisplayName("")
     @Test
     public void RegexTest6() {
         // given
@@ -115,7 +110,6 @@ public class RegexTest {
         assertTrue(isCorrect);
     }
 
-    @DisplayName("")
     @Test
     public void RegexTest7() {
         // given
@@ -128,5 +122,18 @@ public class RegexTest {
 
         // then
         assertTrue(isCorrect);
+    }
+
+    @Test
+    public void RegexTest8() {
+        // given
+        String videoId = "5SuMzCVg7AQ";
+        String data = String.format("https://youtube.com/shorts/%s?feature=share", videoId);
+
+        // when
+        String[] parsedData = data.split("/shorts/")
+                [1].split("\\?");
+        // then
+        assertEquals(videoId, parsedData[0]);
     }
 }
