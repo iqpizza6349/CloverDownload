@@ -30,7 +30,7 @@ public class Utils {
         YoutubeDLRequest request = new YoutubeDLRequest(
                 videoUrl, directory
         );
-        request.setOption("format", "\"bestvideo[height<=?720]+bestaudio/best[height<=?720]\"");
+        request.setOption("format", "\"bestaudio/best[height<=?720]\"");
         request.setOption("no-cache-dir");
         request.setOption("no-mtime");
         request.setOption("extract-audio");
