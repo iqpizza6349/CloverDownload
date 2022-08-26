@@ -15,7 +15,7 @@ public class MainFrame extends JFrame {
             = {"mp3"};
 
     public MainFrame() {
-        setTitle("Clover Youtube Downloader 1.1.1");
+        setTitle("Clover Youtube Downloader 1.2.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
