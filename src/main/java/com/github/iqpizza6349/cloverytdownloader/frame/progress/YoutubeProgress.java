@@ -18,22 +18,16 @@ public class YoutubeProgress implements Runnable {
         while (true) {
             if (!ResourceUtil.isTrigger() && !ResourceUtil.isDownloadTrigger()) {
                 Thread.yield();
+                continue;
             }
-            else {
-                if (!progressBar.isVisible()) {
-                    progressBar.setVisible(true);
-                }
+            if (!progressBar.isVisible()) {
+                progressBar.setVisible(true);
+            }
 
-                progressBar.setValue(ResourceUtil.getCurrentProgress());
-                try {
-                    // noinspection BusyWait
-                    Thread.sleep(37);
-                } catch (InterruptedException ignored) {}
-
-                if (ResourceUtil.getCurrentProgress() >= 100) {
-                    progressBar.setValue(100);
-                    ResourceUtil.switchTrigger(false);
-                }
+            progressBar.setValue(ResourceUtil.getCurrentProgress());
+            if (ResourceUtil.getCurrentProgress() >= 100) {
+                progressBar.setValue(100);
+                ResourceUtil.switchTrigger(false);
             }
         }
     }
