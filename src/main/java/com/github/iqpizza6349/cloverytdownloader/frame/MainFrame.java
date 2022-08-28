@@ -1,7 +1,6 @@
 package com.github.iqpizza6349.cloverytdownloader.frame;
 
 import com.github.iqpizza6349.cloverytdownloader.core.YoutubeDownload;
-import com.github.iqpizza6349.cloverytdownloader.frame.progress.YoutubeProgress;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,19 +8,32 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements Runnable {
 
+    private final JLabel resultLabel = new JLabel("");
+    private final ProgressThread progressThread = getProgressThread(resultLabel);
     private final String[] FORMAT_TYPES
             = {"mp3"};
+    JProgressBar progressBar = getProgressBar();
+    private final YoutubeDownload youtubeDownload;
 
     public MainFrame() {
+        this.youtubeDownload = new YoutubeDownload(progressBar);
+    }
+
+    @Override
+    public void run() {
+        init();
+        progressThread.start();
+    }
+
+    private void init() {
         setTitle("Clover Youtube Downloader 1.2.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
-        JProgressBar progressBar = getProgressBar();
         TextField pathField = getPathField("파일을 다운받을 저장 공간을 입력해주세요.", 65);
-        JLabel resultLabel = new JLabel("");
+
 
         Container container = getContentPane();
         container.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -39,10 +51,15 @@ public class MainFrame extends JFrame {
         setSize(540, 360);
         setLocationRelativeTo(null);
         setVisible(true);
-
-        youtubeProgress(progressBar);
-        youtubeDownload(resultLabel);
     }
+
+    private ProgressThread getProgressThread(JLabel resultLabel) {
+        ProgressThread thread = new ProgressThread(resultLabel);
+        thread.setDaemon(true);
+        return thread;
+    }
+
+    // https://www.youtube.com/watch?v=kkgxHU6pt0I
 
     private Label getBlankLabel(int repeat) {
         return new Label(ResourceUtil.BLANK.repeat(repeat));
@@ -62,7 +79,7 @@ public class MainFrame extends JFrame {
     private TextField getPathField(String defaultText, int columns, String name) {
         TextField textField = new TextField(defaultText, columns);
         textField.setName(name);
-        textField.setSize(14, 40);
+        textField.setPreferredSize(new Dimension(14, 40));
         textField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -109,35 +126,19 @@ public class MainFrame extends JFrame {
         return progressBar;
     }
 
-    private void youtubeProgress(JProgressBar progressBar) {
-        YoutubeProgress youtubeProgress = new YoutubeProgress(progressBar);
-        Thread progressBarThread = new Thread(youtubeProgress, "progress");
-        progressBarThread.setDaemon(true);
-        progressBarThread.start();
-    }
-
-    private void youtubeDownload(JLabel label) {
-        YoutubeDownload youtubeDownload = new YoutubeDownload(label);
-        Thread thread = new Thread(youtubeDownload, "youtube");
-        thread.setDaemon(true);
-        thread.start();
-    }
-
     private JButton convertButton(JLabel resultLabel) {
         JButton jButton = new JButton("다운로드");
         jButton.setPreferredSize(new Dimension(90, 28));
         jButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (ResourceUtil.isTrigger()) {
+                if (resultLabel.getText().equals("")) {
                     resultLabel.setText("다운로드 중입니다!");
                     return;
                 }
 
-                ResourceUtil.initializationProgress();
-                ResourceUtil.switchTrigger(true);
-                ResourceUtil.switchDownloadTrigger(true);
                 resultLabel.setText("");
+                progressThread.setFuture(youtubeDownload.downloadYoutube());
             }
         });
         return jButton;

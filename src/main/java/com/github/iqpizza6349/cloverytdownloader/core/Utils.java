@@ -6,6 +6,7 @@ import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLException;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLRequest;
 import org.apache.commons.validator.routines.UrlValidator;
 
+import javax.swing.*;
 import java.io.File;
 
 public class Utils {
@@ -26,7 +27,8 @@ public class Utils {
     }
 
     public static boolean sendRequest(final String videoUrl,
-                                      final String directory) {
+                                      final String directory,
+                                      final JProgressBar progressBar) {
         YoutubeDLRequest request = new YoutubeDLRequest(
                 videoUrl, directory
         );
@@ -48,11 +50,16 @@ public class Utils {
             YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
             YoutubeDL.execute(
                     request,
-                    (progress, etaInSeconds) -> ResourceUtil.updateCurrentProgress((int) progress)
+                    (progress, etaInSeconds) -> {
+                        if (!progressBar.isVisible()) {
+                            progressBar.setVisible(true);
+                        }
+
+                        progressBar.setValue((int) progress);
+                    }
             );
             return true;
-        } catch (YoutubeDLException e) {
-            e.printStackTrace();
+        } catch (YoutubeDLException ignored) {
             return false;
         }
     }
