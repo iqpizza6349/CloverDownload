@@ -144,6 +144,7 @@ public class MainFrame extends JFrame implements Runnable {
 
                 resultLabel.setText("");
                 resultLabel.setName("downloading");
+                progressBar.setValue(0);
                 YoutubeRequest youtubeRequest;
                 try {
                     youtubeRequest = new YoutubeRequest(

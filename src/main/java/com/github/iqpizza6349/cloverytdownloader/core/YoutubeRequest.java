@@ -29,6 +29,10 @@ public class YoutubeRequest {
             url = url.split("/shorts/")[1]
                     .split("\\?")[0];
         }
+        if (url.matches("(.*)&ab_channel=(.*)")) {
+            url = url.split("&")[0];
+        }
+        
         return url;
     }
 

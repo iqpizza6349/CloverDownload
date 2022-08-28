@@ -1,6 +1,5 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
-import com.github.iqpizza6349.cloverytdownloader.frame.ResourceUtil;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLException;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLRequest;
@@ -47,7 +46,7 @@ public class Utils {
         request.setOption("retries", 10);
 
         try {
-            YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
+            YoutubeDL.setExecutablePath("C:\\Users\\DGSW\\Downloads\\ffmpeg-master-latest-win64-gpl\\bin\\youtube-dl");
             YoutubeDL.execute(
                     request,
                     (progress, etaInSeconds) -> {
