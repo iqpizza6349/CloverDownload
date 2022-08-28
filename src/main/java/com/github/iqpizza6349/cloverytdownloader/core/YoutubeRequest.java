@@ -1,18 +1,23 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
+import javax.swing.*;
+
 public class YoutubeRequest {
     private final String youtubeUrl;
     private final String downloadDirectory;
+    private final JProgressBar progressBar;
 
-    public YoutubeRequest(String youtubeUrl, String downloadDirectory)
+    public YoutubeRequest(String youtubeUrl, String downloadDirectory,
+                          JProgressBar progressBar)
             throws IllegalArgumentException {
         this.youtubeUrl = checkUrl(youtubeUrl);
         checkDirectory(downloadDirectory);
         this.downloadDirectory = downloadDirectory;
+        this.progressBar = progressBar;
     }
 
     public boolean downloadYT() {
-        return Utils.sendRequest(youtubeUrl, downloadDirectory);
+        return Utils.sendRequest(youtubeUrl, downloadDirectory, progressBar);
     }
 
     private String checkUrl(String url) throws IllegalArgumentException {
