@@ -1,6 +1,7 @@
 package com.github.iqpizza6349.cloverytdownloader.frame;
 
 import com.github.iqpizza6349.cloverytdownloader.core.YoutubeDownload;
+import com.github.iqpizza6349.cloverytdownloader.core.YoutubeRequest;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,16 +11,10 @@ import java.io.File;
 
 public class MainFrame extends JFrame implements Runnable {
 
-    private final JLabel resultLabel = new JLabel("");
+    private final JLabel resultLabel = getResultLabel();
     private final ProgressThread progressThread = getProgressThread(resultLabel);
     private final String[] FORMAT_TYPES
             = {"mp3"};
-    JProgressBar progressBar = getProgressBar();
-    private final YoutubeDownload youtubeDownload;
-
-    public MainFrame() {
-        this.youtubeDownload = new YoutubeDownload(progressBar);
-    }
 
     @Override
     public void run() {
@@ -28,12 +23,13 @@ public class MainFrame extends JFrame implements Runnable {
     }
 
     private void init() {
+        setIconImage(getLogoIcon());
         setTitle("Clover Youtube Downloader 1.2.0");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setResizable(false);
 
         TextField pathField = getPathField("파일을 다운받을 저장 공간을 입력해주세요.", 65);
-
+        JProgressBar progressBar = getProgressBar();
 
         Container container = getContentPane();
         container.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -42,7 +38,7 @@ public class MainFrame extends JFrame implements Runnable {
         container.add(getPathField("Youtube 주소", 62, "YOUTUBE"));
         container.add(getFormatType());
         container.add(getBlankLabel(2));
-        container.add(convertButton(resultLabel));
+        container.add(convertButton(resultLabel, progressBar));
         container.add(progressBar);
         container.add(getBlankLabel(4));
         container.add(resultLabel);
@@ -59,7 +55,11 @@ public class MainFrame extends JFrame implements Runnable {
         return thread;
     }
 
-    // https://www.youtube.com/watch?v=kkgxHU6pt0I
+    private JLabel getResultLabel() {
+        JLabel resultLabel = new JLabel("");
+        resultLabel.setName("INIT");
+        return resultLabel;
+    }
 
     private Label getBlankLabel(int repeat) {
         return new Label(ResourceUtil.BLANK.repeat(repeat));
@@ -73,7 +73,11 @@ public class MainFrame extends JFrame implements Runnable {
     }
 
     private Icon getFolderIcon() {
-        return new ImageIcon(ResourceUtil.getImage());
+        return new ImageIcon(ResourceUtil.getFolderImage());
+    }
+
+    private Image getLogoIcon() {
+        return ResourceUtil.getLogoIcon();
     }
 
     private TextField getPathField(String defaultText, int columns, String name) {
@@ -126,19 +130,32 @@ public class MainFrame extends JFrame implements Runnable {
         return progressBar;
     }
 
-    private JButton convertButton(JLabel resultLabel) {
+    private JButton convertButton(JLabel resultLabel, JProgressBar progressBar) {
         JButton jButton = new JButton("다운로드");
         jButton.setPreferredSize(new Dimension(90, 28));
         jButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (resultLabel.getText().equals("")) {
+                if (resultLabel.getText().equals("")
+                        && resultLabel.getName().equalsIgnoreCase("DOWNLOADING")) {
                     resultLabel.setText("다운로드 중입니다!");
                     return;
                 }
 
                 resultLabel.setText("");
-                progressThread.setFuture(youtubeDownload.downloadYoutube());
+                resultLabel.setName("downloading");
+                YoutubeRequest youtubeRequest;
+                try {
+                    youtubeRequest = new YoutubeRequest(
+                            ResourceUtil.getYoutubeURL(),
+                            ResourceUtil.getDownloadPath(),
+                            progressBar
+                    );
+                } catch (IllegalArgumentException iae) {
+                    resultLabel.setText("유튜브 혹은 다운로드 경로에 이상이 있습니다.");
+                    return;
+                }
+                progressThread.setFuture(new YoutubeDownload().downloadYoutube(youtubeRequest));
             }
         });
         return jButton;

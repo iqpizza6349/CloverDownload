@@ -37,6 +37,7 @@ public class ProgressThread extends Thread {
                     resultLabel.setText("다운로드 실패");
                 }
                 future = null;
+                resultLabel.setName("INIT");
             }
         }
     }

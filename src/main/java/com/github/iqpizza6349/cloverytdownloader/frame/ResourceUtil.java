@@ -31,18 +31,25 @@ public final class ResourceUtil {
         return stringBuilder.append("/bin").toString();
     }
 
-    public static Image getImage() {
+    private static Image getImage(String name) {
         ClassLoader classLoader = ResourceUtil.class.getClassLoader();
-        InputStream inputStream = classLoader.getResourceAsStream("icon/folder_icon.png");
-        if (inputStream == null) {
-            throw new IllegalArgumentException("file not found!");
-        }
+        try (final InputStream inputStream = classLoader.getResourceAsStream(name)) {
+            if (inputStream == null) {
+                throw new IllegalArgumentException("file not found!");
+            }
 
-        try {
             return ImageIO.read(inputStream);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Image getFolderImage() {
+        return getImage("icon/folder_icon.png");
+    }
+
+    public static Image getLogoIcon() {
+        return getImage("icon/logo.png");
     }
 
     public static String getYoutubeURL() {
