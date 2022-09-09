@@ -1,11 +1,11 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
-import com.github.iqpizza6349.cloverytdownloader.frame.ResourceUtil;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLException;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLRequest;
 import org.apache.commons.validator.routines.UrlValidator;
 
+import javax.swing.*;
 import java.io.File;
 
 public class Utils {
@@ -26,11 +26,12 @@ public class Utils {
     }
 
     public static boolean sendRequest(final String videoUrl,
-                                      final String directory) {
+                                      final String directory,
+                                      final JProgressBar progressBar) {
         YoutubeDLRequest request = new YoutubeDLRequest(
                 videoUrl, directory
         );
-        request.setOption("format", 251);
+        request.setOption("format", "\"bestaudio/best[height<=?720]\"");
         request.setOption("no-cache-dir");
         request.setOption("no-mtime");
         request.setOption("extract-audio");
@@ -40,16 +41,24 @@ public class Utils {
         request.setOption("audio-quality", 0);
         request.setOption("add-metadata");
         request.setOption("embed-thumbnail");
+        request.setOption("ignore-errors");
+        request.setOption("continue");
+        request.setOption("retries", 10);
 
         try {
-            YoutubeDL.setExecutablePath(ResourceUtil.getYoutubeDLBinPath() + "/youtube-dl");
+            YoutubeDL.setExecutablePath("C:\\Users\\DGSW\\Downloads\\ffmpeg-master-latest-win64-gpl\\bin\\youtube-dl");
             YoutubeDL.execute(
                     request,
-                    (progress, etaInSeconds) -> ResourceUtil.updateCurrentProgress((int) progress)
+                    (progress, etaInSeconds) -> {
+                        if (!progressBar.isVisible()) {
+                            progressBar.setVisible(true);
+                        }
+
+                        progressBar.setValue((int) progress);
+                    }
             );
             return true;
-        } catch (YoutubeDLException e) {
-            e.printStackTrace();
+        } catch (YoutubeDLException ignored) {
             return false;
         }
     }

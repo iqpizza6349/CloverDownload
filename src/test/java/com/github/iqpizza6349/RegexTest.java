@@ -136,4 +136,29 @@ public class RegexTest {
         // then
         assertEquals(videoId, parsedData[0]);
     }
+
+    @Test
+    public void RegexTest9() {
+        // given
+        String url = "https://www.youtube.com/watch?v=_5nwQMdPjMU&ab_channel=%ED%95%98%EB%B9%84Havy";
+
+        // when
+        boolean matches = url.matches("(.*)&ab_channel=(.*)");
+
+        // then
+        assertTrue(matches);
+    }
+
+    @Test
+    public void RegexTest10() {
+        // given
+        String requiredUrl = "https://www.youtube.com/watch?v=_5nwQMdPjMU";
+        String url = "https://www.youtube.com/watch?v=_5nwQMdPjMU&ab_channel=%ED%95%98%EB%B9%84Havy";
+
+        // when
+        String[] parsedData = url.split("&");
+
+        // then
+        assertEquals(requiredUrl, parsedData[0]);
+    }
 }
