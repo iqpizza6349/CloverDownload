@@ -1,8 +1,8 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
-import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
-import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLException;
-import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDLRequest;
+import com.github.iqpizza6349.cloverprocessor.CloverProcessRequest;
+import com.github.iqpizza6349.cloverprocessor.CloverProcessor;
+import com.github.iqpizza6349.cloverprocessor.exception.CloverProcessorException;
 import org.apache.commons.validator.routines.UrlValidator;
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class Utils {
     public static boolean sendRequest(final String videoUrl,
                                       final String directory,
                                       final JProgressBar progressBar) {
-        YoutubeDLRequest request = new YoutubeDLRequest(
+        CloverProcessRequest request = new CloverProcessRequest(
                 videoUrl, directory
         );
         request.setOption("format", "\"bestaudio/best[height<=?720]\"");
@@ -46,8 +46,8 @@ public class Utils {
         request.setOption("retries", 10);
 
         try {
-            YoutubeDL.setExecutablePath("C:\\Users\\DGSW\\Downloads\\ffmpeg-master-latest-win64-gpl\\bin\\youtube-dl");
-            YoutubeDL.execute(
+            CloverProcessor.setExecutablePath("C:\\Users\\DGSW\\Downloads\\ffmpeg-master-latest-win64-gpl\\bin\\youtube-dl");
+            CloverProcessor.execute(
                     request,
                     (progress, etaInSeconds) -> {
                         if (!progressBar.isVisible()) {
@@ -58,7 +58,7 @@ public class Utils {
                     }
             );
             return true;
-        } catch (YoutubeDLException ignored) {
+        } catch (CloverProcessorException ignored) {
             return false;
         }
     }
