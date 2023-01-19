@@ -3,6 +3,7 @@ package com.github.iqpizza6349.cloverytdownloader.frame.component.button;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.text.TextInputField;
 
+import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class DownloadButton extends CustomButton {
@@ -13,7 +14,7 @@ public class DownloadButton extends CustomButton {
 
     public DownloadButton(TextInputField downloadPath, TextInputField youtubeURL, FormatComboBox comboBox) {
         super("다운로드");
-        super.setSize(90, 28);
+        super.setPreferredSize(new Dimension(90, 28));
         this.downloadPath = downloadPath;
         this.youtubePath = youtubeURL;
         this.formatComboBox = comboBox;
