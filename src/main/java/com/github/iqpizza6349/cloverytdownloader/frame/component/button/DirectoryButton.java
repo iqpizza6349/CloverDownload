@@ -1,6 +1,7 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.component.button;
 
 import com.github.iqpizza6349.cloverytdownloader.frame.component.text.TextInputField;
+import com.github.iqpizza6349.cloverytdownloader.frame.util.ResourceUtil;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -11,7 +12,7 @@ public class DirectoryButton extends CustomButton {
     private final TextInputField inputField;
 
     public DirectoryButton(TextInputField inputField) {
-        super();
+        super(new ImageIcon(ResourceUtil.getFolderImage()));
         this.inputField = inputField;
         super.addActionListener(openFolder());
     }
