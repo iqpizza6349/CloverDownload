@@ -163,3 +163,6 @@ gradle-app.setting
 *.html
 *.css
 
+# binrary files
+*.exe
+*.dll
