@@ -86,6 +86,7 @@ public class MainFrame extends JFrame implements Runnable {
         return container;
     }
 
+    @SuppressWarnings("unchecked")
     private static <T extends Component> T findComponent(final Component[] data, Class<T> clazz) {
         return (T) Arrays.stream(data).filter(component -> component.getClass() == clazz)
                 .findFirst()
