@@ -52,6 +52,7 @@ public class StreamProcessExtractor extends Thread {
             float progress = Float.parseFloat(m.group(GROUP_PERCENT));
             long eta = convertToSeconds(m.group(GROUP_MINUTES), m.group(GROUP_SECONDS));
             callback.onProgressUpdate(progress, eta);
+            System.out.println("ok");
         }
     }
 

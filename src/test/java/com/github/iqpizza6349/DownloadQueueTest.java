@@ -25,10 +25,10 @@ public class DownloadQueueTest {
         QUEUE.add(link);
 
         // verify
-        assertEquals(link, QUEUE.peek());
+        assertEquals(link, QUEUE.peek().getLink());
 
         // then
-        YoutubeLink element = QUEUE.getElement();
+        YoutubeLink element = QUEUE.getElement().getLink();
 
         // verify
         assertEquals(link, element);

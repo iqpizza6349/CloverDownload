@@ -1,5 +1,7 @@
 package com.github.iqpizza6349.cloverytdownloader.frame;
 
+import com.github.iqpizza6349.cloverytdownloader.core.DownloadCore;
+import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadProgressBar;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.button.DirectoryButton;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.button.DownloadButton;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
@@ -9,8 +11,8 @@ import com.github.iqpizza6349.cloverytdownloader.frame.util.ResourceUtil;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
-import java.util.NoSuchElementException;
+
+import static com.github.iqpizza6349.cloverytdownloader.frame.util.ComponentUtil.findComponent;
 
 public class MainFrame extends JFrame implements Runnable {
 
@@ -20,8 +22,10 @@ public class MainFrame extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        // JFrame 을 구성해야한다.
-        // 비동기 progress bar 가 동작해야한다.
+        //noinspection InfiniteLoopStatement
+        while (true) {
+            new DownloadCore().start();
+        }
     }
 
     private void init() {
@@ -35,17 +39,25 @@ public class MainFrame extends JFrame implements Runnable {
         setResizable(false);
 
         Container topContainer = getContentPane();
+        topContainer.setLayout(new FlowLayout());
 
-        final JPanel panel = new JPanel(new FlowLayout());
+        JPanel userPanel = new JPanel();
+        userPanel.setName("userPanel");
+        userPanel.setLayout(new BoxLayout(userPanel, BoxLayout.Y_AXIS));
 
         final JPanel directoryPanel = setDirectoryPanel();
-        panel.add(directoryPanel);
         final JPanel youtubePanel = setYoutubePanel();
-        panel.add(youtubePanel);
-        panel.add(setButtonPanel(directoryPanel.getComponents(), youtubePanel.getComponents()));
+        final JPanel buttonPanel = setButtonPanel(directoryPanel.getComponents(), youtubePanel.getComponents());
 
-        topContainer.add(panel);
+        userPanel.add(directoryPanel);
+        userPanel.add(youtubePanel);
+        userPanel.add(buttonPanel);
 
+        // add download progress bar panel
+        final JPanel progressPanel = setProgressPanel();
+
+        topContainer.add(userPanel);
+        topContainer.add(progressPanel);
 
         pack();
         setSize(540, 360);
@@ -76,7 +88,7 @@ public class MainFrame extends JFrame implements Runnable {
     }
 
     private JPanel setButtonPanel(Component[] pathData, Component[] youtubeData) {
-        JPanel container = new JPanel(new BorderLayout());
+        JPanel container = new JPanel(new FlowLayout());
         TextInputField downloadPath = findComponent(pathData, TextInputField.class);
         TextInputField youtubePath = findComponent(youtubeData, TextInputField.class);
         FormatComboBox format = findComponent(youtubeData, FormatComboBox.class);
@@ -86,12 +98,17 @@ public class MainFrame extends JFrame implements Runnable {
         return container;
     }
 
-    @SuppressWarnings("unchecked")
-    private static <T extends Component> T findComponent(final Component[] data, Class<T> clazz) {
-        return (T) Arrays.stream(data).filter(component -> component.getClass() == clazz)
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("cannot found such find of " + clazz + "type in elements!"));
+    private JPanel setProgressPanel() {
+        JPanel container = new JPanel();
+        container.setName("progressPanel");
+        container.setLayout(new BoxLayout(container, BoxLayout.Y_AXIS));
 
+        container.add(new DownloadProgressBar());
+        container.add(new DownloadProgressBar());
+        container.add(new DownloadProgressBar());
+        container.add(new DownloadProgressBar());
+        container.add(new DownloadProgressBar());
+
+        return container;
     }
-
 }
