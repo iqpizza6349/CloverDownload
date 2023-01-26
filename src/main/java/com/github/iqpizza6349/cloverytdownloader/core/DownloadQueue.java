@@ -1,8 +1,10 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
+import com.github.iqpizza6349.cloverytdownloader.frame.component.CustomComponent;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeLink;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.YoutubeDownloadCallback;
 
+import javax.swing.*;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -28,7 +30,18 @@ public class DownloadQueue {
     }
 
     public synchronized void add(YoutubeLink link, YoutubeDownloadCallback callback) {
-        requests.offer(new DownloadRequest(link, callback));
+        add(link, callback, null);
+    }
+
+    public synchronized void add(YoutubeLink link, YoutubeDownloadCallback callback,
+                                 CustomComponent customComponent) {
+        if (customComponent != null) {
+            if (!(customComponent instanceof JProgressBar)) {
+                return;
+            }
+        }
+
+        requests.offer(new DownloadRequest(link, callback, customComponent));
     }
 
     public synchronized DownloadRequest getElement() {

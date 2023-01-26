@@ -1,6 +1,7 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.component.button;
 
 import com.github.iqpizza6349.cloverytdownloader.core.DownloadQueue;
+import com.github.iqpizza6349.cloverytdownloader.core.exceptions.NoInitializedProgressBarException;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadProgressBar;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.text.TextInputField;
@@ -16,11 +17,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class DownloadButton extends CustomButton {
-
-
-
-
-
     private static final YoutubeDL YOUTUBE_INSTANCE = new YoutubeDL();
 
     private final TextInputField downloadPath;
@@ -68,12 +64,22 @@ public class DownloadButton extends CustomButton {
                 return;
             }
 
+            DownloadProgressBar progressBar = null;
+            while (progressBar == null) {
+                try {
+                    progressBar = getDownloadProgressBar(request.getYoutubeUrl());
+                } catch (NoInitializedProgressBarException e) {
+                    System.err.println("there's no available progres-bar");
+                }
+            }
+
             DownloadQueue.getInstance()
-                    .add(request.toLink(format), callback(request.getYoutubeUrl()));
+                    .add(request.toLink(format), callback(progressBar), progressBar);
         };
     }
 
-    private synchronized YoutubeDownloadCallback callback(final String url) {
+    private synchronized DownloadProgressBar getDownloadProgressBar(final String url) throws
+            NoInitializedProgressBarException {
         final String title;
 
         try {
@@ -96,11 +102,9 @@ public class DownloadButton extends CustomButton {
                 "progressPanel"
         );
 
-        DownloadProgressBar progressBar = (DownloadProgressBar) ComponentUtil.findInitializedProgressBar(
-                progressPanel.getComponents()
-        );
-
-        progressBar.setVisible(true);
+        DownloadProgressBar progressBar =
+                (DownloadProgressBar) ComponentUtil
+                        .findInitializedProgressBar(progressPanel.getComponents());
         progressBar.setValue(0);
 
         if (title.length() > 40) {
@@ -110,7 +114,14 @@ public class DownloadButton extends CustomButton {
             progressBar.setTitle(title);
         }
 
+        ComponentUtil.useDownloadProgressBar(progressBar);
+        return progressBar;
+    }
+
+
+    private synchronized YoutubeDownloadCallback callback(DownloadProgressBar progressBar) {
         return (progress, etaInSeconds) -> {
+            progressBar.setVisible(true);
             progressBar.percentUpdate((int) progress);
             progressBar.etaUpdate(etaInSeconds);
         };

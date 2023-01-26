@@ -1,9 +1,11 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.component.bar;
 
+import com.github.iqpizza6349.cloverytdownloader.frame.component.CustomComponent;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class DownloadProgressBar extends JProgressBar {
+public class DownloadProgressBar extends JProgressBar implements CustomComponent {
 
     private String title;
 
@@ -29,4 +31,7 @@ public class DownloadProgressBar extends JProgressBar {
         setString(String.format("%s (ETA: %d)", title, value));
     }
 
+    public String getTitle() {
+        return title;
+    }
 }
