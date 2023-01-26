@@ -57,4 +57,12 @@ public class YoutubeRequest {
         // return default youtube option
         return new YoutubeLink(youtubeUrl, downloadDirectory, option);
     }
+
+    public String getYoutubeUrl() {
+        return youtubeUrl;
+    }
+
+    public String getDownloadDirectory() {
+        return downloadDirectory;
+    }
 }

@@ -5,7 +5,10 @@ import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadPro
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.text.TextInputField;
 import com.github.iqpizza6349.cloverytdownloader.frame.util.ComponentUtil;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeRequest;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.exception.YoutubeException;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.mapper.VideoInfo;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.YoutubeDownloadCallback;
 
 import javax.swing.*;
@@ -13,6 +16,12 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 
 public class DownloadButton extends CustomButton {
+
+
+
+
+
+    private static final YoutubeDL YOUTUBE_INSTANCE = new YoutubeDL();
 
     private final TextInputField downloadPath;
     private final TextInputField youtubePath;
@@ -59,11 +68,20 @@ public class DownloadButton extends CustomButton {
                 return;
             }
 
-            DownloadQueue.getInstance().add(request.toLink(format), callback());
+            DownloadQueue.getInstance()
+                    .add(request.toLink(format), callback(request.getYoutubeUrl()));
         };
     }
 
-    private YoutubeDownloadCallback callback() {
+    private synchronized YoutubeDownloadCallback callback(final String url) {
+        final String title;
+
+        try {
+            title = findVideoInfo(url).title;
+        } catch (YoutubeException e) {
+            throw new RuntimeException(e);
+        }
+
         JPanel panel = ComponentUtil.findComponent(
                 youtubePath.getParent().getParent().getParent().getComponents(),
                 JPanel.class,
@@ -85,7 +103,21 @@ public class DownloadButton extends CustomButton {
         progressBar.setVisible(true);
         progressBar.setValue(0);
 
-        return (progress, etaInSeconds) -> progressBar.setValue((int) progress);
+        if (title.length() > 40) {
+            progressBar.setTitle(title.substring(0, 40) + "...");
+        }
+        else {
+            progressBar.setTitle(title);
+        }
+
+        return (progress, etaInSeconds) -> {
+            progressBar.percentUpdate((int) progress);
+            progressBar.etaUpdate(etaInSeconds);
+        };
+    }
+
+    private VideoInfo findVideoInfo(String url) throws YoutubeException {
+        return YOUTUBE_INSTANCE.getVideoInfo(url);
     }
 
 }

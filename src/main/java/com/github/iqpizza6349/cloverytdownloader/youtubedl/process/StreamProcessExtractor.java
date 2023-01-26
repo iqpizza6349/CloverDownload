@@ -40,9 +40,10 @@ public class StreamProcessExtractor extends Thread {
 
                 currentLine.append((char) nextChar);
             }
-        } catch (IOException ignored) {
+        } catch (IOException e) {
             /* if exception occurred, program need to handle and show message or whatever shows that exception has occurred */
             // TODO: 2023-01-24 handle this exception
+            e.printStackTrace();
         }
     }
 
@@ -52,7 +53,6 @@ public class StreamProcessExtractor extends Thread {
             float progress = Float.parseFloat(m.group(GROUP_PERCENT));
             long eta = convertToSeconds(m.group(GROUP_MINUTES), m.group(GROUP_SECONDS));
             callback.onProgressUpdate(progress, eta);
-            System.out.println("ok");
         }
     }
 

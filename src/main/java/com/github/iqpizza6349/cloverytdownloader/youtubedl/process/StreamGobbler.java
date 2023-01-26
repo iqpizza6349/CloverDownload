@@ -21,9 +21,10 @@ public class StreamGobbler extends Thread {
             while ((nextChar = stream.read()) != -1) {
                 buffer.append((char) nextChar);
             }
-        } catch (IOException ignored) {
+        } catch (IOException e) {
             /* if exception occurred, program need to handle and show message or whatever shows that exception has occurred */
             // TODO: 2023-01-24 handle this exception
+            e.printStackTrace();
         }
     }
 }

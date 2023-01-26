@@ -4,13 +4,8 @@ import com.github.iqpizza6349.cloverytdownloader.youtubedl.utils.YoutubeOptionUt
 
 public class YoutubeOption {
 
-    private static YoutubeOptionBuilder YOUTUBE_OPTION_BUILDER;
-
     public static YoutubeOptionBuilder builder() {
-        if (YOUTUBE_OPTION_BUILDER == null) {
-            YOUTUBE_OPTION_BUILDER = new YoutubeOptionBuilder();
-        }
-        return YOUTUBE_OPTION_BUILDER;
+        return new YoutubeOptionBuilder();
     }
 
     private final String options;

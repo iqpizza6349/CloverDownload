@@ -1,13 +1,32 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.component.bar;
 
 import javax.swing.*;
+import java.awt.*;
 
 public class DownloadProgressBar extends JProgressBar {
 
+    private String title;
+
     public DownloadProgressBar() {
         setStringPainted(true);
-        setValue(0);
+        setPreferredSize(new Dimension(400, 24));
+
+        percentUpdate(0);
+        etaUpdate(0);
+
         setVisible(false);
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void percentUpdate(int value) {
+        setValue(value);
+    }
+
+    public void etaUpdate(long value) {
+        setString(String.format("%s (ETA: %d)", title, value));
     }
 
 }

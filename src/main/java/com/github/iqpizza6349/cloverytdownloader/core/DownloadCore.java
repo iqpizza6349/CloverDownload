@@ -1,7 +1,9 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeLink;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.exception.YoutubeException;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.YoutubeDownloadCallback;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -21,28 +23,38 @@ public class DownloadCore extends Thread {
         while (true) {
             try {
                 //noinspection BusyWait
-                Thread.sleep(500);
-            } catch (InterruptedException ignored) {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
                 /* if exception occurred, program need to handle and show message or whatever shows that exception has occurred */
                 // TODO: 2023-01-24 handle this exception
-            }
-
-            if (QUEUE.getRequests().isEmpty()) {
-                return;
+                e.printStackTrace();
             }
 
             final DownloadRequest request;
-            synchronized (QUEUE) {
+
+            synchronized (this) {
+                if (QUEUE.getRequests().isEmpty() || QUEUE.peek() == null) {
+                    return;
+                }
+
                 request = QUEUE.getElement();
             }
-            assert (request != null);
+            if (request == null) {
+                return;
+            }
+
+            final YoutubeLink link = request.getLink();
+            final YoutubeDownloadCallback callback = request.getCallback();
 
             EXECUTOR.execute(() -> {
                 try {
-                    DOWNLOAD_PROCESSOR.execute(request.getLink(), request.getCallback());
-                } catch (YoutubeException ignored) {
+                     DOWNLOAD_PROCESSOR.execute(link, callback);
+                } catch (YoutubeException e) {
                     /* if exception occurred, program need to handle and show message or whatever shows that exception has occurred */
                     // TODO: 2023-01-24 handle this exception
+                    e.printStackTrace();
+                } catch (NullPointerException e) {
+                    e.printStackTrace();
                 }
             });
         }

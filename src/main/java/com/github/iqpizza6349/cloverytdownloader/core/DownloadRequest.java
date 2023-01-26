@@ -20,4 +20,12 @@ public class DownloadRequest {
     public YoutubeDownloadCallback getCallback() {
         return callback;
     }
+
+    @Override
+    public String toString() {
+        return "DownloadRequest{" +
+                "link=" + link +
+                ", callback=" + callback +
+                '}';
+    }
 }

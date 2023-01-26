@@ -4,7 +4,7 @@ import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeLink;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.YoutubeDownloadCallback;
 
 import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 public class DownloadQueue {
 
@@ -17,25 +17,25 @@ public class DownloadQueue {
         return DOWNLOAD_QUEUE;
     }
 
-    private final Queue<DownloadRequest> requests = new ConcurrentLinkedDeque<>();
+    private final Queue<DownloadRequest> requests = new ConcurrentLinkedQueue<>();
 
-    public Queue<DownloadRequest> getRequests() {
+    public synchronized Queue<DownloadRequest> getRequests() {
         return requests;
     }
 
-    public void add(YoutubeLink link) {
+    public synchronized void add(YoutubeLink link) {
         add(link, null);
     }
 
-    public void add(YoutubeLink link, YoutubeDownloadCallback callback) {
+    public synchronized void add(YoutubeLink link, YoutubeDownloadCallback callback) {
         requests.offer(new DownloadRequest(link, callback));
     }
 
-    public DownloadRequest getElement() {
+    public synchronized DownloadRequest getElement() {
         return requests.poll();
     }
 
-    public DownloadRequest peek() {
+    public synchronized DownloadRequest peek() {
         return requests.peek();
     }
 

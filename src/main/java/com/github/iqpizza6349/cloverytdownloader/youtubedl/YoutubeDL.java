@@ -92,7 +92,7 @@ public class YoutubeDL {
         }
 
         int elapsedTime = (int) ((System.nanoTime() - startTime) / 1_000_000);
-        return new YoutubeResponse(exitCode, out, err, directory, elapsedTime);
+        return new YoutubeResponse(exitCode, out, err, directory, options, elapsedTime);
     }
 
     public String getVersion() throws YoutubeParseException {

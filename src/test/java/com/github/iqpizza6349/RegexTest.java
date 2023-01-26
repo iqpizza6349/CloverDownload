@@ -159,4 +159,18 @@ public class RegexTest {
         // then
         assertEquals(requiredUrl, parsedData[0]);
     }
+
+    @Test
+    public void RegexTest11() {
+        // given
+        String uuid = "_5nwQMdPjMU";
+        String requiredUrl = "https://www.youtube.com/watch?v=_5nwQMdPjMU";
+
+        // when
+        String parsedData = requiredUrl.split("/?v=")[1];
+
+        // then
+        assertEquals(uuid, parsedData);
+    }
+
 }
