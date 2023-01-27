@@ -28,6 +28,7 @@ public class DownloadFutureTask extends FutureTask<YoutubeResponse> {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         } catch (Exception e) {
+            System.err.println(e.getMessage());
             failureCallback.onFailure(e.getCause());
         } finally {
             finallyCallback.onFinally();

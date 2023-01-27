@@ -1,44 +1,37 @@
 package com.github.iqpizza6349.cloverytdownloader.core;
 
-import com.github.iqpizza6349.cloverytdownloader.frame.component.CustomComponent;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeLink;
-import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.YoutubeDownloadCallback;
 
 public class DownloadRequest {
 
     private final YoutubeLink link;
-    private final YoutubeDownloadCallback callback;
-    private final String hexCode;       // reference in DownloadProgressBar.class
+    private final String title;
+    private final boolean requiredProgress;
 
-    public DownloadRequest(YoutubeLink link, YoutubeDownloadCallback callback,
-                           CustomComponent customComponent) {
-        this(link, callback, (customComponent == null) ? "0" : customComponent.getHexHashCode());
-    }
-
-    public DownloadRequest(YoutubeLink link, YoutubeDownloadCallback callback,
-                           String hexCode) {
+    public DownloadRequest(YoutubeLink link, String title, boolean requiredProgress) {
         this.link = link;
-        this.callback = callback;
-        this.hexCode = hexCode;
+        this.title = title;
+        this.requiredProgress = requiredProgress;
     }
 
     public YoutubeLink getLink() {
         return link;
     }
 
-    public YoutubeDownloadCallback getCallback() {
-        return callback;
+    public String getTitle() {
+        return title;
     }
 
-    public String getHexCode() {
-        return hexCode;
+    public boolean isRequiredProgress() {
+        return requiredProgress;
     }
 
     @Override
     public String toString() {
         return "DownloadRequest{" +
                 "link=" + link +
-                ", callback=" + callback +
+                ", title='" + title + '\'' +
+                ", requiredProgress=" + requiredProgress +
                 '}';
     }
 }

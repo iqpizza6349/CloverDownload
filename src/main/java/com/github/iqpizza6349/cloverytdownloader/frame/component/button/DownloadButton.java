@@ -1,18 +1,13 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.component.button;
 
 import com.github.iqpizza6349.cloverytdownloader.core.DownloadQueue;
-import com.github.iqpizza6349.cloverytdownloader.core.exceptions.NoInitializedProgressBarException;
-import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadProgressBar;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.text.TextInputField;
-import com.github.iqpizza6349.cloverytdownloader.frame.util.ComponentUtil;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeRequest;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.exception.YoutubeException;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.mapper.VideoInfo;
-import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.YoutubeDownloadCallback;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
@@ -64,22 +59,15 @@ public class DownloadButton extends CustomButton {
                 return;
             }
 
-            DownloadProgressBar progressBar = null;
-            while (progressBar == null) {
-                try {
-                    progressBar = getDownloadProgressBar(request.getYoutubeUrl());
-                } catch (NoInitializedProgressBarException e) {
-                    System.err.println("there's no available progres-bar");
-                }
-            }
+            final String url = request.getYoutubeUrl();
 
             DownloadQueue.getInstance()
-                    .add(request.toLink(format), callback(progressBar), progressBar);
+                    .add(request.toLink(format), getTitle(url));
+            System.out.println(DownloadQueue.getInstance().peek());
         };
     }
 
-    private synchronized DownloadProgressBar getDownloadProgressBar(final String url) throws
-            NoInitializedProgressBarException {
+    private String getTitle(String url) {
         final String title;
 
         try {
@@ -87,48 +75,10 @@ public class DownloadButton extends CustomButton {
         } catch (YoutubeException e) {
             throw new RuntimeException(e);
         }
-
-        JPanel panel = ComponentUtil.findComponent(
-                youtubePath.getParent().getParent().getParent().getComponents(),
-                JPanel.class,
-                BoxLayout.class
-        );
-        Container rootContainer = panel.getParent();
-
-        JPanel progressPanel = ComponentUtil.findComponent(
-                rootContainer.getComponents(),
-                JPanel.class,
-                BoxLayout.class,
-                "progressPanel"
-        );
-
-        DownloadProgressBar progressBar =
-                (DownloadProgressBar) ComponentUtil
-                        .findInitializedProgressBar(progressPanel.getComponents());
-        progressBar.setValue(0);
-
-        if (title.length() > 40) {
-            progressBar.setTitle(title.substring(0, 40) + "...");
-        }
-        else {
-            progressBar.setTitle(title);
-        }
-
-        ComponentUtil.useDownloadProgressBar(progressBar);
-        return progressBar;
-    }
-
-
-    private synchronized YoutubeDownloadCallback callback(DownloadProgressBar progressBar) {
-        return (progress, etaInSeconds) -> {
-            progressBar.setVisible(true);
-            progressBar.percentUpdate((int) progress);
-            progressBar.etaUpdate(etaInSeconds);
-        };
+        return title;
     }
 
     private VideoInfo findVideoInfo(String url) throws YoutubeException {
         return YOUTUBE_INSTANCE.getVideoInfo(url);
     }
-
 }

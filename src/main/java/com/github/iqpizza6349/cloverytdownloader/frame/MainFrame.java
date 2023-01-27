@@ -6,6 +6,7 @@ import com.github.iqpizza6349.cloverytdownloader.frame.component.button.Director
 import com.github.iqpizza6349.cloverytdownloader.frame.component.button.DownloadButton;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.text.TextInputField;
+import com.github.iqpizza6349.cloverytdownloader.frame.util.ComponentUtil;
 import com.github.iqpizza6349.cloverytdownloader.frame.util.IniData;
 import com.github.iqpizza6349.cloverytdownloader.frame.util.ResourceUtil;
 
@@ -109,6 +110,7 @@ public class MainFrame extends JFrame implements Runnable {
         container.add(new DownloadProgressBar());
         container.add(new DownloadProgressBar());
 
+        ComponentUtil.addJProgressBar(container.getComponents());
         return container;
     }
 }

@@ -3,15 +3,13 @@ package com.github.iqpizza6349.cloverytdownloader.frame.util;
 import com.github.iqpizza6349.cloverytdownloader.core.exceptions.NoInitializedProgressBarException;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadProgressBar;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.*;
-import java.util.List;
 
 public final class ComponentUtil {
 
-    private static final List<DownloadProgressBar> PROGRESS_BARS = new ArrayList<>();
-
+    private static final Map<DownloadProgressBar, Boolean> AVAILABLE_PROGRESS_BARS
+            = new LinkedHashMap<>();
 
     @SuppressWarnings("unchecked")
     public static <T extends Component> T findComponent(final Component[] data, Class<T> clazz) {
@@ -40,23 +38,34 @@ public final class ComponentUtil {
                 .orElseThrow(() -> new NoSuchElementException("cannot found such find of " + clazz + "type in elements!"));
     }
 
-    public static JProgressBar findInitializedProgressBar(final Component[] data) throws NoInitializedProgressBarException {
-        return (JProgressBar) Arrays.stream(data).filter(component -> component instanceof JProgressBar)
-                .filter(component -> ((JProgressBar) component).getValue() == 0)
-                .filter(component -> component.getName() == null)
-                .findFirst()
-                .orElseThrow(NoInitializedProgressBarException::new);
+    public static void addJProgressBar(final Component[] data) {
+        Arrays.stream(data)
+                .filter(component -> component.getClass() == DownloadProgressBar.class)
+                .map(component -> (DownloadProgressBar) component)
+                .forEach(progressBar -> AVAILABLE_PROGRESS_BARS.put(progressBar, true));
     }
 
-    public static void useDownloadProgressBar(DownloadProgressBar progressBar) {
-        PROGRESS_BARS.add(progressBar);
+    public static synchronized DownloadProgressBar getAvailableProgressBar() throws
+            NoInitializedProgressBarException {
+        for (Map.Entry<DownloadProgressBar, Boolean> entry : AVAILABLE_PROGRESS_BARS.entrySet()) {
+            final DownloadProgressBar progressBar = entry.getKey();
+            final boolean available = entry.getValue();
+
+            if (!available || progressBar.getValue() != 0 || progressBar.getTitle() != null) {
+                continue;
+            }
+
+            return progressBar;
+        }
+
+        throw new NoInitializedProgressBarException();
     }
 
-    public static DownloadProgressBar findProgressBarByHexCode(String hexCode) {
-        return PROGRESS_BARS.stream().filter(progressBar -> progressBar.getHexHashCode()
-                .equalsIgnoreCase(hexCode))
-                .findFirst()
-                .orElseThrow(() -> new NoSuchElementException("cannot found progress-bar with hex-code such as " + hexCode));
+    public static synchronized void useDownloadProgressBar(DownloadProgressBar progressBar) {
+        AVAILABLE_PROGRESS_BARS.put(progressBar, false);
     }
 
+    public static synchronized void returnProgressBar(DownloadProgressBar progressBar) {
+        AVAILABLE_PROGRESS_BARS.put(progressBar, true);
+    }
 }
