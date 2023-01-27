@@ -34,4 +34,11 @@ public class DownloadProgressBar extends JProgressBar implements CustomComponent
     public String getTitle() {
         return title;
     }
+
+    @Override
+    public String toString() {
+        return "DownloadProgressBar{" +
+                "title='" + title + '\'' +
+                '}';
+    }
 }

@@ -27,6 +27,12 @@ public class DownloadQueue {
     }
 
     public synchronized void add(YoutubeLink link, String title) {
+        if (!requests.isEmpty()) {
+            if (findSameTitle(link.getUrl(), title)) {
+                return;
+            }
+        }
+
         requests.offer(new DownloadRequest(link, title, (title != null)));
     }
 
@@ -36,6 +42,14 @@ public class DownloadQueue {
 
     public synchronized DownloadRequest peek() {
         return requests.peek();
+    }
+
+    protected synchronized boolean findSameTitle(final String link, final String title) {
+        return requests.stream()
+                .anyMatch(
+                        downloadRequest -> downloadRequest.getTitle().equalsIgnoreCase(title)
+                        && downloadRequest.getLink().getUrl().equalsIgnoreCase(link)
+                );
     }
 
 }

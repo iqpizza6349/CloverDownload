@@ -61,6 +61,26 @@ public final class ComponentUtil {
         throw new NoInitializedProgressBarException();
     }
 
+    public static synchronized boolean checkDuplicateRequest(String title) {
+        if (AVAILABLE_PROGRESS_BARS.keySet().stream()
+                .allMatch(progressBar -> progressBar.getTitle() == null)) {
+            // if progress bar is all null
+            return false;
+        }
+
+        for (DownloadProgressBar progressBar : AVAILABLE_PROGRESS_BARS.keySet()) {
+            if (progressBar.getTitle() == null) {
+                return true;
+            }
+
+            if (progressBar.getTitle().equalsIgnoreCase(title)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public static synchronized void useDownloadProgressBar(DownloadProgressBar progressBar) {
         AVAILABLE_PROGRESS_BARS.put(progressBar, false);
     }

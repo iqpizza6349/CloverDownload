@@ -50,11 +50,15 @@ public class DownloadCore extends Thread {
             return;
         }
 
-        initializeProgressBar(progressBar, request.getTitle());
-
         final YoutubeLink link = request.getLink();
         final YoutubeDownloadCallback callback = callback(progressBar);
 
+        if (ComponentUtil.checkDuplicateRequest(request.getTitle())) {
+            System.err.println("중복된 요청이 들어왔습니다.");
+            return;
+        }
+
+        initializeProgressBar(progressBar, request.getTitle());
         EXECUTOR.execute(task(link, callback, progressBar));
         try {
             Thread.sleep(2000);
