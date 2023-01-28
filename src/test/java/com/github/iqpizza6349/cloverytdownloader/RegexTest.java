@@ -1,4 +1,4 @@
-package com.github.iqpizza6349;
+package com.github.iqpizza6349.cloverytdownloader;
 
 import org.junit.jupiter.api.Test;
 

@@ -1,4 +1,4 @@
-package com.github.iqpizza6349;
+package com.github.iqpizza6349.cloverytdownloader;
 
 import com.github.iqpizza6349.cloverytdownloader.core.DownloadQueue;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeLink;
