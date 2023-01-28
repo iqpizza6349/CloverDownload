@@ -11,7 +11,7 @@ public class DownloadProgressBar extends JProgressBar implements CustomComponent
 
     public DownloadProgressBar() {
         setStringPainted(true);
-        setPreferredSize(new Dimension(400, 24));
+        setPreferredSize(new Dimension(450, 24));
 
         percentUpdate(0);
         etaUpdate(0);

@@ -5,6 +5,8 @@ import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadPro
 import com.github.iqpizza6349.cloverytdownloader.frame.component.button.DirectoryButton;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.button.DownloadButton;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
+import com.github.iqpizza6349.cloverytdownloader.frame.component.menu.ConfigMenu;
+import com.github.iqpizza6349.cloverytdownloader.frame.component.menu.FileMenu;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.text.TextInputField;
 import com.github.iqpizza6349.cloverytdownloader.frame.util.ComponentUtil;
 import com.github.iqpizza6349.cloverytdownloader.frame.util.IniData;
@@ -60,6 +62,9 @@ public class MainFrame extends JFrame implements Runnable {
         topContainer.add(userPanel);
         topContainer.add(progressPanel);
 
+        // add menu-bar in main-frame
+        setJMenuBar(menuBar());
+
         pack();
         setSize(540, 360);
         setLocationRelativeTo(null);
@@ -112,5 +117,13 @@ public class MainFrame extends JFrame implements Runnable {
 
         ComponentUtil.addJProgressBar(container.getComponents());
         return container;
+    }
+
+    private JMenuBar menuBar() {
+        final JMenuBar menuBar = new JMenuBar();
+        menuBar.add(new FileMenu());
+        menuBar.add(new ConfigMenu(this));
+
+        return menuBar;
     }
 }

@@ -1,5 +1,6 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.util;
 
+import com.github.iqpizza6349.cloverytdownloader.constant.ConfigMenuItem;
 import com.github.iqpizza6349.cloverytdownloader.core.exceptions.NoInitializedProgressBarException;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadProgressBar;
 
@@ -10,6 +11,7 @@ public final class ComponentUtil {
 
     private static final Map<DownloadProgressBar, Boolean> AVAILABLE_PROGRESS_BARS
             = new LinkedHashMap<>();
+    private static final Map<String, Boolean> AVAILABLE_MENU_ITEMS = new HashMap<>();
 
     @SuppressWarnings("unchecked")
     public static <T extends Component> T findComponent(final Component[] data, Class<T> clazz) {
@@ -87,5 +89,36 @@ public final class ComponentUtil {
 
     public static synchronized void returnProgressBar(DownloadProgressBar progressBar) {
         AVAILABLE_PROGRESS_BARS.put(progressBar, true);
+    }
+
+    public static void initializesMenuItems(Collection<ConfigMenuItem> components) {
+        components.forEach(s -> AVAILABLE_MENU_ITEMS.put(s.getName(), true));
+    }
+
+    public static boolean isAvailableMenuItem(ConfigMenuItem menuItem) {
+        final String menuName = menuItem.getName();
+        if (!AVAILABLE_MENU_ITEMS.containsKey(menuName)) {
+            // doesn't exists
+            return false;
+        }
+
+        for (Map.Entry<String, Boolean> menu : AVAILABLE_MENU_ITEMS.entrySet()) {
+            if (menu.getKey().equals(menuName) && menu.getValue()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static void useAvailableMenuItem(ConfigMenuItem menuItem) {
+        if (!AVAILABLE_MENU_ITEMS.containsKey(menuItem.getName())) {
+            throw new NoSuchElementException();
+        }
+
+        AVAILABLE_MENU_ITEMS.put(menuItem.getName(), false);
+    }
+
+    public static void returnMenuItem(ConfigMenuItem menuItem) {
+        AVAILABLE_MENU_ITEMS.put(menuItem.getName(), true);
     }
 }

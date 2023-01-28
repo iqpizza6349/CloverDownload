@@ -1,0 +1,126 @@
+PS C:\Users\user\IdeaProjects\CloverYTDownload\playlist> ..\src\main\resources\nativelibs\ffmpeg-win64-gpl\bin\youtube-dl.exe --no-cache-dir --format "bestaudio/best[height<=?720]" --prefer-ffmpeg --output "%(title)s.%(ext)s" --add-metadata --retries 10 --extract-au
+dio --embed-thumbnail --ignore-errors --audio-quality 0 --continue --no-mtime --audio-format mp3 --playlist-end 20 https://www.youtube.com/playlist?list=PL7PvW7FA77wcYOsEb3oWF4HrRcKRT7HSF
+[youtube:tab] PL7PvW7FA77wcYOsEb3oWF4HrRcKRT7HSF: Downloading webpage
+[download] Downloading playlist: playlist
+[youtube:tab] playlist playlist: Downloading 11 videos
+[download] Downloading video 1 of 11
+[youtube] N-GiemsYDf4: Downloading webpage
+[youtube] N-GiemsYDf4: Downloading player 4248d311
+[youtube] N-GiemsYDf4: Downloading thumbnail ...
+[youtube] N-GiemsYDf4: Writing thumbnail to: 첫 소절 시작하자마자 소름  - 𝐋 𝐒 𝐃  - 𝐆 𝐞 𝐧 𝐢 𝐮 𝐬  [가사_해석_lyrics].jpg
+[download] Destination: 첫 소절 시작하자마자 소름  - 𝐋 𝐒 𝐃  - 𝐆 𝐞 𝐧 𝐢 𝐮 𝐬  [가사_해석_lyrics].webm
+[download] 100% of 3.04MiB in 01:00
+[ffmpeg] Destination: 첫 소절 시작하자마자 소름  - 𝐋 𝐒 𝐃  - 𝐆 𝐞 𝐧 𝐢 𝐮 𝐬  [가사_해석_lyrics].mp3
+Deleting original file 첫 소절 시작하자마자 소름  - 𝐋 𝐒 𝐃  - 𝐆 𝐞 𝐧 𝐢 𝐮 𝐬  [가사_해석_lyrics].webm (pass -k to keep)
+[ffmpeg] Adding metadata to '첫 소절 시작하자마자 소름  - 𝐋 𝐒 𝐃  - 𝐆 𝐞 𝐧 𝐢 𝐮 𝐬  [가사_해석_lyrics].mp3'
+[ffmpeg] Adding thumbnail to "첫 소절 시작하자마자 소름  - 𝐋 𝐒 𝐃  - 𝐆 𝐞 𝐧 𝐢 𝐮 𝐬  [가사_해석_lyrics].mp3"
+[download] Downloading video 2 of 11
+[youtube] -U_VVsZkXF4: Downloading webpage
+[youtube] -U_VVsZkXF4: Downloading thumbnail ...
+[youtube] -U_VVsZkXF4: Writing thumbnail to: 신곡🔥🔥 _ 상상용은 항상 상상 이상이다💀 - 𝙄 𝙢 𝙖 𝙜 𝙞 𝙣 𝙚  𝘿 𝙧 𝙖 𝙜 𝙤 𝙣 𝙨  - 𝘽 𝙤 𝙣 𝙚 𝙨  (2022) [가사해석_번역].webp
+[download] Destination: 신곡🔥🔥 _ 상상용은 항상 상상 이상이다💀 - 𝙄 𝙢 𝙖 𝙜 𝙞 𝙣 𝙚  𝘿 𝙧 𝙖 𝙜 𝙤 𝙣 𝙨  - 𝘽 𝙤 𝙣 𝙚 𝙨  (2022) [가사해석_번역].webm
+[download] 100% of 2.58MiB in 00:35
+[ffmpeg] Destination: 신곡🔥🔥 _ 상상용은 항상 상상 이상이다💀 - 𝙄 𝙢 𝙖 𝙜 𝙞 𝙣 𝙚  𝘿 𝙧 𝙖 𝙜 𝙤 𝙣 𝙨  - 𝘽 𝙤 𝙣 𝙚 𝙨  (2022) [가사해석_번역].mp3
+Deleting original file 신곡🔥🔥 _ 상상용은 항상 상상 이상이다💀 - 𝙄 𝙢 𝙖 𝙜 𝙞 𝙣 𝙚  𝘿 𝙧 𝙖 𝙜 𝙤 𝙣 𝙨  - 𝘽 𝙤 𝙣 𝙚 𝙨  (2022) [가사해석_번역].webm (pass -k to keep)
+[ffmpeg] Adding metadata to '신곡🔥🔥 _ 상상용은 항상 상상 이상이다💀 - 𝙄 𝙢 𝙖 𝙜 𝙞 𝙣 𝙚  𝘿 𝙧 𝙖 𝙜 𝙤 𝙣 𝙨  - 𝘽 𝙤 𝙣 𝙚 𝙨  (2022) [가사해석_번역].mp3'
+[ffmpeg] Converting thumbnail "신곡🔥🔥 _ 상상용은 항상 상상 이상이다💀 - 𝙄 𝙢 𝙖 𝙜 𝙞 𝙣 𝙚  𝘿 𝙧 𝙖 𝙜 𝙤 𝙣 𝙨  - 𝘽 𝙤 𝙣 𝙚 𝙨  (2022) [가사해석_번역].webp" to JPEG
+[ffmpeg] Adding thumbnail to "신곡🔥🔥 _ 상상용은 항상 상상 이상이다💀 - 𝙄 𝙢 𝙖 𝙜 𝙞 𝙣 𝙚  𝘿 𝙧 𝙖 𝙜 𝙤 𝙣 𝙨  - 𝘽 𝙤 𝙣 𝙚 𝙨  (2022) [가사해석_번역].mp3"
+[download] Downloading video 3 of 11
+[youtube] n6J4_VvAbI0: Downloading webpage
+[youtube] n6J4_VvAbI0: Downloading thumbnail ...
+[youtube] n6J4_VvAbI0: Writing thumbnail to: 멋있어지고 싶을 때 듣는 노래🔥 Will Jay - Off The Record [가사_해석_lyrics].webp
+[download] Destination: 멋있어지고 싶을 때 듣는 노래🔥 Will Jay - Off The Record [가사_해석_lyrics].webm
+[download] 100% of 3.24MiB in 00:40
+[ffmpeg] Destination: 멋있어지고 싶을 때 듣는 노래🔥 Will Jay - Off The Record [가사_해석_lyrics].mp3
+Deleting original file 멋있어지고 싶을 때 듣는 노래🔥 Will Jay - Off The Record [가사_해석_lyrics].webm (pass -k to keep)
+[ffmpeg] Adding metadata to '멋있어지고 싶을 때 듣는 노래🔥 Will Jay - Off The Record [가사_해석_lyrics].mp3'
+[ffmpeg] Converting thumbnail "멋있어지고 싶을 때 듣는 노래🔥 Will Jay - Off The Record [가사_해석_lyrics].webp" to JPEG
+[ffmpeg] Adding thumbnail to "멋있어지고 싶을 때 듣는 노래🔥 Will Jay - Off The Record [가사_해석_lyrics].mp3"
+[download] Downloading video 4 of 11
+[youtube] GDAHjupksR0: Downloading webpage
+[youtube] GDAHjupksR0: Downloading thumbnail ...
+[youtube] GDAHjupksR0: Writing thumbnail to: 샘 라이더 (Sam Ryder) - SPACE MAN 가사 번역 뮤직비디오.jpg
+[download] Destination: 샘 라이더 (Sam Ryder) - SPACE MAN 가사 번역 뮤직비디오.webm
+[download] 100% of 3.76MiB in 01:25
+[ffmpeg] Destination: 샘 라이더 (Sam Ryder) - SPACE MAN 가사 번역 뮤직비디오.mp3
+Deleting original file 샘 라이더 (Sam Ryder) - SPACE MAN 가사 번역 뮤직비디오.webm (pass -k to keep)
+[ffmpeg] Adding metadata to '샘 라이더 (Sam Ryder) - SPACE MAN 가사 번역 뮤직비디오.mp3'
+[ffmpeg] Adding thumbnail to "샘 라이더 (Sam Ryder) - SPACE MAN 가사 번역 뮤직비디오.mp3"
+[download] Downloading video 5 of 11
+[youtube] 4haurn3S8z8: Downloading webpage
+[youtube] 4haurn3S8z8: Downloading thumbnail ...
+[youtube] 4haurn3S8z8: Writing thumbnail to: Skylar Grey, Polo G, Mozzy, Eminem - Last One Standing (Lyric Video).jpg
+[download] Destination: Skylar Grey, Polo G, Mozzy, Eminem - Last One Standing (Lyric Video).webm
+[download] 100% of 4.31MiB in 00:57
+[ffmpeg] Destination: Skylar Grey, Polo G, Mozzy, Eminem - Last One Standing (Lyric Video).mp3
+Deleting original file Skylar Grey, Polo G, Mozzy, Eminem - Last One Standing (Lyric Video).webm (pass -k to keep)
+[ffmpeg] Adding metadata to 'Skylar Grey, Polo G, Mozzy, Eminem - Last One Standing (Lyric Video).mp3'
+[ffmpeg] Adding thumbnail to "Skylar Grey, Polo G, Mozzy, Eminem - Last One Standing (Lyric Video).mp3"
+[download] Downloading video 6 of 11
+[youtube] mXLRy1cNMWs: Downloading webpage
+[youtube] mXLRy1cNMWs: Downloading thumbnail ...
+[youtube] mXLRy1cNMWs: Writing thumbnail to: X Ambassadors - BOOM (Official Video).jpg
+[download] Destination: X Ambassadors - BOOM (Official Video).m4a
+[download] 100% of 2.55MiB in 00:42
+[ffmpeg] Correcting container in "X Ambassadors - BOOM (Official Video).m4a"
+[ffmpeg] Destination: X Ambassadors - BOOM (Official Video).mp3
+Deleting original file X Ambassadors - BOOM (Official Video).m4a (pass -k to keep)
+[ffmpeg] Adding metadata to 'X Ambassadors - BOOM (Official Video).mp3'
+[ffmpeg] Adding thumbnail to "X Ambassadors - BOOM (Official Video).mp3"
+[download] Downloading video 7 of 11
+[youtube] 3PfvS6e44ho: Downloading webpage
+[youtube] 3PfvS6e44ho: Downloading thumbnail ...
+[youtube] 3PfvS6e44ho: Writing thumbnail to: 🔥빌보드 1위 X 멜론 1위의 조합  - 24kGoldn x sokodomo(소코도모) - SCAR (Prod. BOYCOLD) [가사_해석_번역_lyrics].jpg
+[download] Destination: 🔥빌보드 1위 X 멜론 1위의 조합  - 24kGoldn x sokodomo(소코도모) - SCAR (Prod. BOYCOLD) [가사_해석_번역_lyrics].webm
+[download] 100% of 2.65MiB in 00:32
+[ffmpeg] Destination: 🔥빌보드 1위 X 멜론 1위의 조합  - 24kGoldn x sokodomo(소코도모) - SCAR (Prod. BOYCOLD) [가사_해석_번역_lyrics].mp3
+Deleting original file 🔥빌보드 1위 X 멜론 1위의 조합  - 24kGoldn x sokodomo(소코도모) - SCAR (Prod. BOYCOLD) [가사_해석_번역_lyrics].webm (pass -k to keep)
+[ffmpeg] Adding metadata to '🔥빌보드 1위 X 멜론 1위의 조합  - 24kGoldn x sokodomo(소코도모) - SCAR (Prod. BOYCOLD) [가사_해석_번역_lyrics].mp3'
+[ffmpeg] Adding thumbnail to "🔥빌보드 1위 X 멜론 1위의 조합  - 24kGoldn x sokodomo(소코도모) - SCAR (Prod. BOYCOLD) [가사_해석_번역_lyrics].mp3"
+[download] Downloading video 8 of 11
+[youtube] DQ7FubRst6M: Downloading webpage
+[youtube] DQ7FubRst6M: Downloading thumbnail ...
+[youtube] DQ7FubRst6M: Writing thumbnail to: 친구여.jpg
+[download] Destination: 친구여.m4a
+[download] 100% of 3.97MiB in 01:00
+[ffmpeg] Correcting container in "친구여.m4a"
+[ffmpeg] Destination: 친구여.mp3
+Deleting original file 친구여.m4a (pass -k to keep)
+[ffmpeg] Adding metadata to '친구여.mp3'
+[ffmpeg] Correcting extension to webp and escaping path for thumbnail "친구여.jpg"
+[ffmpeg] Converting thumbnail "친구여.webp" to JPEG
+[ffmpeg] Adding thumbnail to "친구여.mp3"
+[download] Downloading video 9 of 11
+[youtube] KmVSwFd3TCA: Downloading webpage
+[youtube] KmVSwFd3TCA: Downloading thumbnail ...
+[youtube] KmVSwFd3TCA: Writing thumbnail to: 그냥 ㅈㄴ 간지나는 노래, Bazzi - Myself [가사_해석].jpg
+[download] Destination: 그냥 ㅈㄴ 간지나는 노래, Bazzi - Myself [가사_해석].webm
+[download] 100% of 2.65MiB in 00:32
+[ffmpeg] Destination: 그냥 ㅈㄴ 간지나는 노래, Bazzi - Myself [가사_해석].mp3
+Deleting original file 그냥 ㅈㄴ 간지나는 노래, Bazzi - Myself [가사_해석].webm (pass -k to keep)
+[ffmpeg] Adding metadata to '그냥 ㅈㄴ 간지나는 노래, Bazzi - Myself [가사_해석].mp3'
+[ffmpeg] Adding thumbnail to "그냥 ㅈㄴ 간지나는 노래, Bazzi - Myself [가사_해석].mp3"
+[download] Downloading video 10 of 11
+[youtube] qpgTC9MDx1o: Downloading webpage
+[youtube] qpgTC9MDx1o: Downloading thumbnail ...
+[youtube] qpgTC9MDx1o: Writing thumbnail to: Maroon 5 - Animals (Official Music Video).jpg
+[download] Destination: Maroon 5 - Animals (Official Music Video).m4a
+[download] 100% of 4.32MiB in 01:06
+[ffmpeg] Correcting container in "Maroon 5 - Animals (Official Music Video).m4a"
+[ffmpeg] Destination: Maroon 5 - Animals (Official Music Video).mp3
+Deleting original file Maroon 5 - Animals (Official Music Video).m4a (pass -k to keep)
+[ffmpeg] Adding metadata to 'Maroon 5 - Animals (Official Music Video).mp3'
+[ffmpeg] Adding thumbnail to "Maroon 5 - Animals (Official Music Video).mp3"
+[download] Downloading video 11 of 11
+[youtube] n2RGleYl5e0: Downloading webpage
+[youtube] n2RGleYl5e0: Downloading thumbnail ...
+[youtube] n2RGleYl5e0: Writing thumbnail to: X Ambassadors - HEY CHILD (Official Video).webp
+[download] Destination: X Ambassadors - HEY CHILD (Official Video).m4a
+[download] 100% of 3.54MiB in 00:59
+[ffmpeg] Correcting container in "X Ambassadors - HEY CHILD (Official Video).m4a"
+[ffmpeg] Destination: X Ambassadors - HEY CHILD (Official Video).mp3
+Deleting original file X Ambassadors - HEY CHILD (Official Video).m4a (pass -k to keep)
+[ffmpeg] Adding metadata to 'X Ambassadors - HEY CHILD (Official Video).mp3'
+[ffmpeg] Converting thumbnail "X Ambassadors - HEY CHILD (Official Video).webp" to JPEG
+[ffmpeg] Adding thumbnail to "X Ambassadors - HEY CHILD (Official Video).mp3"
+[download] Finished downloading playlist: playlist

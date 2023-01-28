@@ -1,5 +1,6 @@
 package com.github.iqpizza6349.cloverytdownloader.youtubedl.domain;
 
+import com.github.iqpizza6349.cloverytdownloader.core.PlaylistRange;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.utils.YoutubeOptionUtil;
 
 public class YoutubeOption {
@@ -36,6 +37,8 @@ public class YoutubeOption {
             optionUtil.addOption("ignore-errors");
             optionUtil.addOption("continue");
             optionUtil.addOption("retries", 10);
+            optionUtil.addOption("playlist-start", PlaylistRange.getInstance().getMin());
+            optionUtil.addOption("playlist-end", PlaylistRange.getInstance().getMax());
         }
 
         public YoutubeOptionBuilder videoFormat(String videoFormat) {
