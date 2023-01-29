@@ -10,7 +10,7 @@ import com.github.iqpizza6349.cloverytdownloader.youtubedl.exception.YoutubePars
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.mapper.VideoInfo;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.StreamGobbler;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.StreamProcessExtractor;
-import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.YoutubeDownloadCallback;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.progress.YoutubeDownloadCallback;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.utils.YoutubeOptionUtil;
 
 import java.io.File;

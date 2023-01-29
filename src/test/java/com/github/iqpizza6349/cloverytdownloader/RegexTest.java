@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RegexTest {
 
     @Test
-    public void RegexTest0() {
+    public void regexTest0() {
         // given
         Pattern pattern = Pattern.compile("\\[download]\\s+");
         String data = "[download] ";
@@ -25,7 +25,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest1() {
+    public void regexTest1() {
         // given
         Pattern pattern = Pattern.compile("(?<percent>\\d+\\.\\d)%");
         String data = "8.4%";
@@ -39,7 +39,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest2() {
+    public void regexTest2() {
         // given
         Pattern pattern = Pattern.compile("\\[download]\\s+(?<percent>\\d+\\.\\d)%");
         String data = "[download]   8.4%";
@@ -53,7 +53,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest3() {
+    public void regexTest3() {
         // given
         Pattern pattern = Pattern.compile(" .* ");
         String data = " of 5.50MiB at 82.09KiB/s ";
@@ -67,7 +67,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest4() {
+    public void regexTest4() {
         // given
         Pattern pattern = Pattern.compile("ETA");
         String data = "ETA";
@@ -81,7 +81,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest5() {
+    public void regexTest5() {
         // given
         Pattern pattern = Pattern.compile(" (?<minutes>\\d+):(?<seconds>\\d+) ");
         String data = " 01:02 ";
@@ -95,7 +95,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest6() {
+    public void regexTest6() {
         // given
         Pattern pattern = Pattern.compile("\\[download]\\s+(?<percent>\\d+\\.\\d)% .* ETA (?<minutes>\\d+):(?<seconds>\\d+)\\s*");
         String data = "[download]   8.4% of 5.50MiB at 82.09KiB/s ETA 01:02 ";
@@ -109,7 +109,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest7() {
+    public void regexTest7() {
         // given
         Pattern pattern = Pattern.compile("\\[download]\\s+(?<percent>\\d+\\.\\d)% .* ETA (?<minutes>\\d+):(?<seconds>\\d+)\\s*");
         String data = "[download]   8.4% of 5.50MiB at 82.09KiB/s ETA 01:02";
@@ -123,7 +123,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest8() {
+    public void regexTest8() {
         // given
         String videoId = "5SuMzCVg7AQ";
         String data = String.format("https://youtube.com/shorts/%s?feature=share", videoId);
@@ -136,7 +136,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest9() {
+    public void regexTest9() {
         // given
         String url = "https://www.youtube.com/watch?v=_5nwQMdPjMU&ab_channel=%ED%95%98%EB%B9%84Havy";
 
@@ -148,7 +148,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest10() {
+    public void regexTest10() {
         // given
         String requiredUrl = "https://www.youtube.com/watch?v=_5nwQMdPjMU";
         String url = "https://www.youtube.com/watch?v=_5nwQMdPjMU&ab_channel=%ED%95%98%EB%B9%84Havy";
@@ -161,7 +161,7 @@ public class RegexTest {
     }
 
     @Test
-    public void RegexTest11() {
+    public void regexTest11() {
         // given
         String uuid = "_5nwQMdPjMU";
         String requiredUrl = "https://www.youtube.com/watch?v=_5nwQMdPjMU";
@@ -173,4 +173,45 @@ public class RegexTest {
         assertEquals(uuid, parsedData);
     }
 
+    @Test
+    public void regexTest12() {
+        // given
+        String playlistConsole = "[download] Downloading video 1 of 10";
+        Pattern pattern = Pattern.compile("\\[download] Downloading video (?<start>\\d+) of (?<end>\\d+)");
+        Matcher matcher = pattern.matcher(playlistConsole);
+
+        // when
+        boolean correct = matcher.matches();
+
+        // verify
+        assertTrue(correct);
+
+        // then
+        int current = Integer.parseInt(matcher.group("start"));
+        int end = Integer.parseInt(matcher.group("end"));
+
+        assertEquals(1, current);
+        assertEquals(10, end);
+    }
+
+    @Test
+    public void regexTest13() {
+        // given
+        final String title = "Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars";
+        final String console = String.format("[download] Destination: %s.webm", title);
+        final String regex = "[download] Destination: ";
+
+        // when
+        final boolean correct = console.startsWith(regex);
+
+        // verify
+        assertTrue(correct);
+
+        // then
+        String parsedTitle = console.replace(regex, "");
+        parsedTitle = parsedTitle.substring(0, parsedTitle.lastIndexOf("."));
+
+        // verify
+        assertEquals(title, parsedTitle);
+    }
 }

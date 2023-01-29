@@ -31,6 +31,11 @@ public class DownloadProgressBar extends JProgressBar implements CustomComponent
         setString(String.format("%s (ETA: %d)", title, value));
     }
 
+    public void playlistUpdate(long value, int currentIndex, int total) {
+        setString(String.format("%s (ETA: %d) [%d of %d]", title, value, currentIndex,
+                total));
+    }
+
     public String getTitle() {
         return title;
     }

@@ -6,7 +6,7 @@ import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadPro
 import com.github.iqpizza6349.cloverytdownloader.frame.util.ComponentUtil;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.YoutubeDL;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeLink;
-import com.github.iqpizza6349.cloverytdownloader.youtubedl.process.YoutubeDownloadCallback;
+import com.github.iqpizza6349.cloverytdownloader.youtubedl.progress.YoutubeDownloadCallback;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -77,25 +77,31 @@ public class DownloadCore extends Thread {
     }
 
     private synchronized YoutubeDownloadCallback callback(final DownloadProgressBar progressBar) {
-        return (progress, etaInSeconds) -> {
-            System.out.printf("[%s] ------ %s%n", Thread.currentThread().getName(), progressBar.getTitle());
-            progressBar.setVisible(true);
+        return (title, progress, etaInSeconds, currentIndex, totalIndex) -> {
+            if (!progressBar.isVisible()) {
+                progressBar.setVisible(true);
+            }
+
+            progressBar.setTitle(title);
             progressBar.percentUpdate((int) progress);
-            progressBar.etaUpdate(etaInSeconds);
+            if (currentIndex == -1 || totalIndex == -1) {
+                progressBar.etaUpdate(etaInSeconds);
+            }
+            else {
+                progressBar.playlistUpdate(etaInSeconds, currentIndex, totalIndex);
+            }
         };
     }
 
     private synchronized void initializeProgressBar(final DownloadProgressBar progressBar,
                                                     final String title) {
         progressBar.setValue(0);
-        if (title.length() > 40) {
-            progressBar.setTitle(title.substring(0, 40) + "...");
-        }
-        else {
-            progressBar.setTitle(title);
-        }
-
+        progressBar.setTitle(shortString(title));
         ComponentUtil.useDownloadProgressBar(progressBar);
+    }
+
+    protected String shortString(final String s) {
+        return (s.trim().length() >= 30) ? s.substring(0, 30) + "..." : s;
     }
 
     private DownloadFutureTask task(final YoutubeLink link, final YoutubeDownloadCallback callback,

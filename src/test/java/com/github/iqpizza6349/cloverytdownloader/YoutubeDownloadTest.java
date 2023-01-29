@@ -32,4 +32,19 @@ public class YoutubeDownloadTest {
         // verify
         assertEquals(title, videoInfo.title);
     }
+
+    @Test
+    void videoInfoTest() throws YoutubeException {
+        // given
+        final String url = "https://www.youtube.com/playlist?list=PLfI752FpVCS9hh_FE8uDuRVgPPnAivZTY";
+        final YoutubeDL youtubeDL = new YoutubeDL();
+
+        // when
+        final VideoInfo videoInfo = youtubeDL.getVideoInfo(url);
+
+        // then
+        System.out.println(videoInfo);
+
+    }
+
 }
