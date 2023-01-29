@@ -5,8 +5,6 @@ import com.github.iqpizza6349.cloverytdownloader.frame.component.CustomComponent
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.TextListener;
-import java.util.function.Consumer;
 
 public class TextInputField extends TextField implements CustomComponent {
 
@@ -35,29 +33,4 @@ public class TextInputField extends TextField implements CustomComponent {
             }
         };
     }
-
-    private TextListener textListeningEvent(Consumer<TextComponent> action) {
-        return (event) -> {
-            Object eventComponent = event.getSource();
-            if (!(eventComponent instanceof TextInputField)) {
-                return;
-            }
-
-            TextInputField inputField = (TextInputField) eventComponent;
-            if (!(inputField.getName().equals(getHexHashCode()))) {
-                return;
-            }
-
-            // TODO: 2023-01-18 작동해야하는 순수 코드 (Consumer)
-            action.accept(inputField);
-        };
-    }
-
-    public void addTextListeningEvent(Consumer<TextComponent> action) {
-        this.addTextListener(textListeningEvent(action));
-    }
-
-
-
-
 }

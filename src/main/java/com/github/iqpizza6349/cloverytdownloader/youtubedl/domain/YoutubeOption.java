@@ -70,6 +70,12 @@ public class YoutubeOption {
 
         public YoutubeOptionBuilder audioFormat(String audioFormat) {
             optionUtil.addOption("audio-format", audioFormat);
+            if (audioFormat.equals("mp3") || audioFormat.equals("m4a")
+                    || audioFormat.equals("mp4")) {
+                return this;
+            }
+
+            optionUtil.removeOption("embed-thumbnail");
             return this;
         }
 

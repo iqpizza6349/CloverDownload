@@ -1,5 +1,6 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.component.button;
 
+import com.github.iqpizza6349.cloverytdownloader.constant.YoutubeFormat;
 import com.github.iqpizza6349.cloverytdownloader.core.DownloadQueue;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.text.TextInputField;
@@ -37,8 +38,8 @@ public class DownloadButton extends CustomButton {
             final String youtubeUrl = youtubePath.getText();
             final String downloadDirectory = downloadPath.getText();
             @SuppressWarnings("ConstantConditions")
-            final String format = formatComboBox.getSelectedItem().toString()
-                            .toLowerCase();
+            final String format = YoutubeFormat.valueOf(formatComboBox.getSelectedItem()
+                    .toString().toUpperCase()).getAudioFormat();
 
             if (youtubeUrl == null || youtubeUrl.isBlank()) {
                 // youtube url is null
