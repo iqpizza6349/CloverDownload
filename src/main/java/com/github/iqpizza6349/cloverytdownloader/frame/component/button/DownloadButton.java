@@ -1,5 +1,6 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.component.button;
 
+import com.github.iqpizza6349.cloverytdownloader.constant.ExitCode;
 import com.github.iqpizza6349.cloverytdownloader.constant.YoutubeFormat;
 import com.github.iqpizza6349.cloverytdownloader.core.DownloadQueue;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.combo.FormatComboBox;
@@ -44,11 +45,13 @@ public class DownloadButton extends CustomButton {
             if (youtubeUrl == null || youtubeUrl.isBlank()) {
                 // youtube url is null
                 System.err.println("youtube url is null or empty");
+                EXIT_MANAGER.occurredExit(ExitCode.INVALID_REQUEST);
                 return;
             }
             else if (downloadDirectory == null || downloadDirectory.isBlank()) {
                 // download directory is null
                 System.err.println("download directory is null or empty");
+                EXIT_MANAGER.occurredExit(ExitCode.INVALID_REQUEST);
                 return;
             }
 
@@ -57,14 +60,13 @@ public class DownloadButton extends CustomButton {
                 request = new YoutubeRequest(youtubeUrl, downloadDirectory);
             } catch (IllegalArgumentException e) {
                 System.err.printf("download path or youtube url isn't valid. %s", e);
+                EXIT_MANAGER.occurredExit(ExitCode.INVALID_REQUEST);
                 return;
             }
 
             final String url = request.getYoutubeUrl();
-
             DownloadQueue.getInstance()
                     .add(request.toLink(format), getTitle(url));
-            System.out.println(DownloadQueue.getInstance().peek());
         };
     }
 
@@ -74,6 +76,7 @@ public class DownloadButton extends CustomButton {
         try {
             title = findVideoInfo(url).title;
         } catch (YoutubeException e) {
+            EXIT_MANAGER.occurredExit(ExitCode.NETWORK_ERROR);
             throw new RuntimeException(e);
         }
         return title;

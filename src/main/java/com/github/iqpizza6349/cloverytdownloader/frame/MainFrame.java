@@ -32,6 +32,7 @@ public class MainFrame extends JFrame implements Runnable {
     }
 
     private void init() {
+        ComponentUtil.initializeMainFrame(this);
         setIconImage(ResourceUtil.getLogoIcon());
         setTitle(
                 ResourceUtil.getValueFromIni(IniData.PROJECT, "name") + " " +

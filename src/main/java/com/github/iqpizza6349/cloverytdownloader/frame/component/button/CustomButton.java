@@ -1,11 +1,12 @@
 package com.github.iqpizza6349.cloverytdownloader.frame.component.button;
 
+import com.github.iqpizza6349.cloverytdownloader.CloverComponent;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.CustomComponent;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class CustomButton extends JButton implements CustomComponent {
+public class CustomButton extends JButton implements CustomComponent, CloverComponent {
 
     public CustomButton(Icon icon) {
         super(icon);

@@ -2,8 +2,10 @@ package com.github.iqpizza6349.cloverytdownloader.frame.util;
 
 import com.github.iqpizza6349.cloverytdownloader.constant.ConfigMenuItem;
 import com.github.iqpizza6349.cloverytdownloader.core.exceptions.NoInitializedProgressBarException;
+import com.github.iqpizza6349.cloverytdownloader.frame.MainFrame;
 import com.github.iqpizza6349.cloverytdownloader.frame.component.bar.DownloadProgressBar;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
@@ -12,6 +14,7 @@ public final class ComponentUtil {
     private static final Map<DownloadProgressBar, Boolean> AVAILABLE_PROGRESS_BARS
             = new LinkedHashMap<>();
     private static final Map<String, Boolean> AVAILABLE_MENU_ITEMS = new HashMap<>();
+    private static MainFrame MAIN_FRAME;
 
     @SuppressWarnings("unchecked")
     public static <T extends Component> T findComponent(final Component[] data, Class<T> clazz) {
@@ -120,5 +123,15 @@ public final class ComponentUtil {
 
     public static void returnMenuItem(ConfigMenuItem menuItem) {
         AVAILABLE_MENU_ITEMS.put(menuItem.getName(), true);
+    }
+
+    public static void initializeMainFrame(MainFrame mainFrame) {
+        if (MAIN_FRAME == null) {
+            MAIN_FRAME = mainFrame;
+        }
+    }
+
+    public static void showDiagram(String title, String message, int messageType) {
+        JOptionPane.showMessageDialog(MAIN_FRAME, message, title, messageType);
     }
 }
