@@ -25,10 +25,7 @@ public class MainFrame extends JFrame implements Runnable {
 
     @Override
     public void run() {
-        //noinspection InfiniteLoopStatement
-        while (true) {
-            new DownloadCore().start();
-        }
+        new DownloadCore().start();
     }
 
     private void init() {

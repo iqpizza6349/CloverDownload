@@ -8,6 +8,7 @@ import java.awt.*;
 public class DownloadProgressBar extends JProgressBar implements CustomComponent {
 
     private String title;
+    private String url;
 
     public DownloadProgressBar() {
         setStringPainted(true);
@@ -17,6 +18,10 @@ public class DownloadProgressBar extends JProgressBar implements CustomComponent
         etaUpdate(0);
 
         setVisible(false);
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public void setTitle(String title) {
@@ -38,6 +43,10 @@ public class DownloadProgressBar extends JProgressBar implements CustomComponent
 
     public String getTitle() {
         return title;
+    }
+
+    public String getUrl() {
+        return url;
     }
 
     @Override

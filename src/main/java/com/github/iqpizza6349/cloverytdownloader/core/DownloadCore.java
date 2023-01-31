@@ -26,41 +26,45 @@ public class DownloadCore extends Thread implements CloverComponent {
 
     @Override
     public void run() {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            EXIT_MANAGER.occurredExit(ExitCode.INTERRUPTED);
-        }
-
-        final DownloadRequest request;
-        final DownloadProgressBar progressBar;
-        try {
-            progressBar = findInitializedProgressBar();
-        } catch (NoInitializedProgressBarException e) {
-            return;
-        }
-
-        synchronized (this) {
-            if (QUEUE.getRequests().isEmpty() || QUEUE.peek() == null) {
-                return;
+        //noinspection InfiniteLoopStatement
+        while (true) {
+            try {
+                //noinspection BusyWait
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                EXIT_MANAGER.occurredExit(ExitCode.INTERRUPTED);
             }
 
-            request = QUEUE.getElement();
-        }
-        if (request == null) {
-            return;
-        }
+            final DownloadRequest request;
+            final DownloadProgressBar progressBar;
+            try {
+                progressBar = findInitializedProgressBar();
+            } catch (NoInitializedProgressBarException e) {
+                continue;
+            }
 
-        final YoutubeLink link = request.getLink();
-        final YoutubeDownloadCallback callback = callback(progressBar);
+            synchronized (this) {
+                if (QUEUE.getRequests().isEmpty() || QUEUE.peek() == null) {
+                    continue;
+                }
 
-        if (ComponentUtil.checkDuplicateRequest(request.getTitle())) {
-            EXIT_MANAGER.occurredExit(ExitCode.DUPLICATE_REQUEST);
-            return;
+                request = QUEUE.getElement();
+            }
+            if (request == null) {
+                continue;
+            }
+
+            final YoutubeLink link = request.getLink();
+            final YoutubeDownloadCallback callback = callback(progressBar);
+
+            if (ComponentUtil.checkDuplicateRequest(link.getUrl())) {
+                EXIT_MANAGER.occurredExit(ExitCode.DUPLICATE_REQUEST);
+                continue;
+            }
+
+            initializeProgressBar(progressBar, request.getTitle(), link.getUrl());
+            EXECUTOR.execute(task(link, callback, progressBar));
         }
-
-        initializeProgressBar(progressBar, request.getTitle());
-        EXECUTOR.execute(task(link, callback, progressBar));
     }
 
     private synchronized DownloadProgressBar findInitializedProgressBar() throws
@@ -90,7 +94,8 @@ public class DownloadCore extends Thread implements CloverComponent {
     }
 
     private synchronized void initializeProgressBar(final DownloadProgressBar progressBar,
-                                                    final String title) {
+                                                    final String title, final String url) {
+        progressBar.setUrl(url);
         progressBar.setValue(0);
         progressBar.setTitle(shortString(title));
         ComponentUtil.useDownloadProgressBar(progressBar);

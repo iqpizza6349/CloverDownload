@@ -76,6 +76,7 @@ public class DownloadButton extends CustomButton {
         try {
             title = findVideoInfo(url).title;
         } catch (YoutubeException e) {
+            e.printStackTrace();
             EXIT_MANAGER.occurredExit(ExitCode.NETWORK_ERROR);
             throw new RuntimeException(e);
         }

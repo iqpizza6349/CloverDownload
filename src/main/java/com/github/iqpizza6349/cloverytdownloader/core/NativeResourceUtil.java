@@ -7,9 +7,9 @@ public final class NativeResourceUtil {
     private NativeResourceUtil() {}
 
     public static String defaultNativeLibrary() {
-        return Objects.requireNonNull(NativeResourceUtil.class
+        final String fullPath = Objects.requireNonNull(NativeResourceUtil.class
                         .getResource("/nativelibs/ffmpeg-win64-gpl/bin/youtube-dl.exe"))
                 .toExternalForm();
+        return fullPath.substring(6);
     }
-
 }
