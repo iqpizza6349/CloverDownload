@@ -15,8 +15,8 @@ public enum ExitCode {
     NO_TITLE(4),
     INVALID_REQUEST(5),
 
-    INTERRUPTED(-1),
-    NETWORK_ERROR(-2)
+    NO_NATIVE_LIBRARY(-1),
+    NETWORK_ERROR(-2),
     ;
     private final int code;
 

@@ -31,9 +31,7 @@ public class DownloadCore extends Thread implements CloverComponent {
             try {
                 //noinspection BusyWait
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                EXIT_MANAGER.occurredExit(ExitCode.INTERRUPTED);
-            }
+            } catch (InterruptedException ignored) {  }
 
             final DownloadRequest request;
             final DownloadProgressBar progressBar;

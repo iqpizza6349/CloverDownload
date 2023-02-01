@@ -1,6 +1,8 @@
 package com.github.iqpizza6349.cloverytdownloader.youtubedl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.iqpizza6349.cloverytdownloader.CloverComponent;
+import com.github.iqpizza6349.cloverytdownloader.constant.ExitCode;
 import com.github.iqpizza6349.cloverytdownloader.core.NativeResourceUtil;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeLink;
 import com.github.iqpizza6349.cloverytdownloader.youtubedl.domain.YoutubeOption;
@@ -17,16 +19,23 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class YoutubeDL {
+public class YoutubeDL implements CloverComponent {
 
     private final String executablePath;
 
     public YoutubeDL() {
-        this.executablePath = NativeResourceUtil.defaultNativeLibrary();
+        this(NativeResourceUtil.defaultNativeLibrary());
     }
 
     public YoutubeDL(String executablePath) {
         this.executablePath = executablePath;
+        checkExecutablePath();
+    }
+
+    private void checkExecutablePath() {
+        if (!(new File(executablePath).exists())) {
+            EXIT_MANAGER.occurredExit(ExitCode.NO_NATIVE_LIBRARY);
+        }
     }
 
     protected String buildCommand(String command) {

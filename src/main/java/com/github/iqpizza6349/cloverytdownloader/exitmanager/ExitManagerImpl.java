@@ -32,11 +32,16 @@ public class ExitManagerImpl implements ExitManager {
                 ComponentUtil.showDiagram("Invalid Request Detected", "Please check your download path and url is valid",
                         JOptionPane.ERROR_MESSAGE);
                 break;
-            case INTERRUPTED:
-                System.exit(ExitCode.INTERRUPTED.getCode());
-                break;
             case NETWORK_ERROR:
+                ComponentUtil.showDiagram("Network Error", "Please try again or check your network is connected",
+                        JOptionPane.ERROR_MESSAGE);
                 System.exit(ExitCode.NETWORK_ERROR.getCode());
+                break;
+            case NO_NATIVE_LIBRARY:
+                ComponentUtil.showDiagram("Cannot Find Native Library",
+                        "Please check if the native library exists in 'nativelibs' directory",
+                        JOptionPane.ERROR_MESSAGE);
+                System.exit(ExitCode.NO_NATIVE_LIBRARY.getCode());
                 break;
         }
     }
