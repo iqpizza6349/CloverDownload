@@ -15,7 +15,6 @@ public class TextInputField extends TextField implements CustomComponent {
     public TextInputField(String initializeText, int columns) {
         super(initializeText, columns);
         setName(getHexHashCode());
-        setPreferredSize(new Dimension(14, 40));
         addMouseListener(clickEvent());
     }
 
