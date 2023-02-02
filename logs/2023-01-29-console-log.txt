@@ -1,0 +1,14 @@
+PS C:\Users\user\IdeaProjects\CloverYTDownload\playlist> ..\src\main\resources\nativelibs\ffmpeg-win64-gpl\bin\youtube-dl.exe --no-cache-dir --format "bestaudio/best[height<=?720]" --prefer-ffmpeg --output "%(title)s.%(ext)s" --add-metadata --retries 10 --extract-au
+dio --embed-thumbnail --ignore-errors --audio-quality 0 --continue --no-mtime --audio-format mp3 https://www.youtube.com/watch?v=OPf0YbXqDm0
+[youtube] OPf0YbXqDm0: Downloading webpage
+[youtube] OPf0YbXqDm0: Downloading player 4248d311
+[youtube] OPf0YbXqDm0: Downloading thumbnail ...
+[youtube] OPf0YbXqDm0: Writing thumbnail to: Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars.webp
+[download] Destination: Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars.m4a
+[download] 100% of 4.17MiB in 00:54
+[ffmpeg] Correcting container in "Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars.m4a"
+[ffmpeg] Destination: Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars.mp3
+Deleting original file Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars.m4a (pass -k to keep)
+[ffmpeg] Adding metadata to 'Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars.mp3'
+[ffmpeg] Converting thumbnail "Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars.webp" to JPEG
+[ffmpeg] Adding thumbnail to "Mark Ronson - Uptown Funk (Official Video) ft. Bruno Mars.mp3"

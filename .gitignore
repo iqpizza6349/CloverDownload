@@ -157,3 +157,12 @@ gradle-app.setting
 ### Gradle Patch ###
 # Java heap dump
 *.hprof
+
+### Native Libs ###
+# documents
+*.html
+*.css
+
+# binrary files
+*.exe
+*.dll

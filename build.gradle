@@ -4,11 +4,13 @@ plugins {
 }
 
 group 'com.github.iqpizza6349'
-version '1.2.0-SNAPSHOT'
+version '1.3.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
 }
+
+compileJava.options.encoding = 'UTF-8'
 
 task customFatJar(type: Jar) {
     manifest {
@@ -33,10 +35,11 @@ allprojects {
 
 dependencies {
     implementation 'commons-validator:commons-validator:1.7'
-    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.13.3'
-    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.14.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.0'
+    implementation 'org.ini4j:ini4j:0.5.4'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 }
 
 test {
