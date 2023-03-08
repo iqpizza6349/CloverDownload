@@ -5,6 +5,6 @@ public final class NativeResourceUtil {
     private NativeResourceUtil() {}
 
     public static String defaultNativeLibrary() {
-        return System.getProperty("user.dir") + "/nativelibs/ffmpeg-win64-gpl/bin/youtube-dl.exe";
+        return System.getProperty("user.dir") + "/nativelibs/ffmpeg-win64-gpl/bin/yt-dlp.exe";
     }
 }
